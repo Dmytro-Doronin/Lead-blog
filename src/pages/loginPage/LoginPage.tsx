@@ -1,3 +1,5 @@
+import { AuthPageWrapper } from '../../components/auth/authPageWrapper/AuthPageWrapper.tsx';
+
 export const LoginPage = () => {
-    return <div>LoginPage</div>;
+    return <AuthPageWrapper>LoginPage</AuthPageWrapper>;
 };

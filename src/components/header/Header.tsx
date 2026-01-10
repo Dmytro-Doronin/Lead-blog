@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import { Logo } from '../logo/Logo.tsx';
 import { Button } from '../ui/button/Button.tsx';
 import styles from './header.module.scss';
@@ -14,7 +16,9 @@ export const Header = () => {
                         <div className={styles.userBlock}>User</div>
                     ) : (
                         <div className={styles.btnGroup}>
-                            <Button value="primary">Sign In</Button>
+                            <Button as={NavLink} to="/login" variant="primary">
+                                Sign In
+                            </Button>
                         </div>
                     )}
                 </div>
