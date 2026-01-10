@@ -1,0 +1,88 @@
+@use '../../../styles/helpers' as *;
+
+.root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: rem(8);
+    gap: rem(10);
+}
+
+.fieldContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background-color: var(--color-secondary);
+    padding: rem(12) rem(30);
+    border-radius: rem(8);
+}
+
+.containerFocused {
+    border-color: var(--color-outline-focus);
+    outline: rem(1) solid var(--color-outline-focus);
+}
+
+.field {
+    width: 100%;
+    font-family: inherit;
+    font-size: rem(16);
+    font-weight: 400;
+    line-height: rem(24);
+    color: var(--color-light-100);
+    padding-right: rem(10);
+    background: transparent;
+    border: none;
+    outline: 0;
+    transition: border-color 0.2s;
+    resize: none;
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        box-shadow: 0 0 0 30px var(--color-secondary) inset !important;
+        -webkit-text-fill-color: white;
+        border-color: rem(1) solid var(--color-light-100);
+    }
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    &.error {
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+    }
+}
+
+.label {
+    margin-bottom: rem(1);
+    color: var(--color-dark-100);
+}
+
+.showPassword {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 1%;
+    bottom: 50%;
+    transform: translateY(-50%);
+
+    width: rem(20);
+    height: rem(20);
+    margin-right: rem(6);
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    outline: 0;
+
+    &:focus-visible {
+        outline: var(--outline-focus);
+    }
+}
+
+.icon {
+    margin-right: rem(8);
+}

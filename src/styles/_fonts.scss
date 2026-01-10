@@ -1,4 +1,12 @@
 @font-face {
+    font-family: 'Lato';
+    src: url('./fonts/Lato-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'ArchivoNarrow';
     src: url('./fonts/ArchivoNarrow-Medium.woff2') format('woff2');
     font-weight: 500;
@@ -10,14 +18,6 @@
     font-family: 'SourceSans3';
     src: url('./fonts/SourceSans3-Regular.woff2') format('woff2');
     font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Lato';
-    src: url('./fonts/Lato-Bold.woff2') format('woff2');
-    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }

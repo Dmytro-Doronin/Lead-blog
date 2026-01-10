@@ -1,0 +1,21 @@
+@use '../../../../styles/helpers' as *;
+
+.uploadWrapper {
+    margin-bottom: rem(10);
+}
+
+.input {
+    display: none;
+}
+
+.imageWrapper {
+    margin-top: rem(8);
+}
+
+.image {
+    max-width: rem(200);
+}
+
+.error {
+    color: var(--color-accent);
+}
