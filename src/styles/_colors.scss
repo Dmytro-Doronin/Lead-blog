@@ -12,4 +12,14 @@
     --color-light-500: #5ce1e6;
     --color-light-600: #5ce1e6;
     --color-light-700: #33bbcf;
+
+    --bg-light-gradient: linear-gradient(
+        90deg,
+        var(--color-light-100) 0%,
+        var(--color-light-200) 16%,
+        var(--color-light-300) 33%,
+        var(--color-light-400) 50%,
+        var(--color-light-500) 66%,
+        var(--color-light-700) 100%
+    );
 }

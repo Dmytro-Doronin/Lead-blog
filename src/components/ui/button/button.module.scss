@@ -1,0 +1,58 @@
+@use '../../../styles/helpers' as *;
+
+.button {
+    display: flex;
+    min-width: rem(40);
+    min-height: rem(40);
+    border: 0;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    vertical-align: text-top;
+    font-size: rem(14);
+    font-weight: 500;
+    padding: rem(8) rem(14);
+    border-radius: rem(40);
+    transition: var(--transition);
+    gap: rem(4);
+    text-align: center;
+    overflow: hidden;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.primary {
+    background: var(--bg-light-gradient);
+    line-height: rem(25);
+    color: var(--color-main);
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: var(--transition);
+        pointer-events: none;
+        border-radius: inherit;
+    }
+    &:hover::after {
+        opacity: 1;
+    }
+}
+
+.secondary {
+    background-color: hsl(var(--color-default) / 1);
+    color: hsl(var(--color-default-foreground) / 1);
+    line-height: rem(25);
+    &:hover {
+        background-color: hsl(var(--color-default-300) / 1);
+    }
+}
+
+.transparent {
+    background: transparent;
+    border: none;
+}
