@@ -8,13 +8,15 @@ type QueueItem = {
     reject: (error: unknown) => void;
 };
 
+//https://blog-backend-nest.vercel.app
+
 export const apiPublic = axios.create({
-    baseURL: 'https://blog-backend-nest.vercel.app',
+    baseURL: 'http://localhost:3000',
     withCredentials: false,
 });
 
 export const apiProtected = axios.create({
-    baseURL: 'https://blog-backend-nest.vercel.app',
+    baseURL: 'http://localhost:3000',
     withCredentials: true,
 });
 
@@ -48,7 +50,6 @@ apiProtected.interceptors.response.use(
 
         if (String(originalRequest.url).includes('/auth/refresh-token')) {
             Cookies.remove('accessToken');
-            window.location.href = '/login';
             return Promise.reject(error);
         }
 
@@ -86,7 +87,6 @@ apiProtected.interceptors.response.use(
             } catch (refreshError) {
                 processQueue(refreshError, null);
                 Cookies.remove('accessToken');
-                window.location.href = '/login';
                 return Promise.reject(refreshError);
             } finally {
                 isRefreshing = false;

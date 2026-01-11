@@ -3,7 +3,7 @@ import type { LoginType, RegisterTypes, UserType } from './types.ts';
 import { apiProtected, apiPublic } from '../api.ts';
 
 export const Login = async (loginData: LoginType) => {
-    const response = await apiPublic.post<{ accessToken: string }>('/auth/login', loginData);
+    const response = await apiProtected.post<{ accessToken: string }>('/auth/login', loginData);
     return response.data.accessToken;
 };
 
@@ -18,7 +18,7 @@ export const Me = async () => {
 };
 
 export const GetRefreshToken = async () => {
-    const response = await apiPublic.post<{ accessToken: string }>('/auth/refresh-token');
+    const response = await apiProtected.post<{ accessToken: string }>('/auth/refresh-token');
     return response.data;
 };
 
