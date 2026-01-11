@@ -1,5 +1,5 @@
-import { ChangeEvent, useRef, useState } from 'react';
-import { useController, Control, FieldValues, Path } from 'react-hook-form';
+import { type ChangeEvent, useRef, useState } from 'react';
+import { useController, type Control, type FieldValues, type Path } from 'react-hook-form';
 
 import { Button } from '../../button/Button.tsx';
 import styles from './ControlledImageUpload.module.scss';

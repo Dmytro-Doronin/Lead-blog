@@ -1,5 +1,5 @@
 export type LoginType = {
-    login: string;
+    loginOrEmail: string;
     password: string;
 };
 

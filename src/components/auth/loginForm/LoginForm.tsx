@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import type { LoginType } from '../../../api/auth/types.ts';
 import type { FormValues } from './loginFormTypes.ts';
 
-import AuthEmail from '../../icons/AuthEmail.tsx';
 import Lock from '../../icons/Lock.tsx';
+import User from '../../icons/User.tsx';
 import { Loader } from '../../loader/Loader.tsx';
 import { Button } from '../../ui/button/Button.tsx';
 import { ControlledTextField } from '../../ui/controlled/ControlledTextField.tsx';
@@ -23,7 +23,7 @@ export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
     const { control, handleSubmit, reset } = useForm<FormValues>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
-            login: '',
+            loginOrEmail: '',
             password: '',
         },
     });
@@ -38,11 +38,11 @@ export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
             <Typography variant={'h2'}>Login</Typography>
             <div className={styles.inputGroup}>
                 <ControlledTextField
-                    label="Login"
-                    placeholder="Enter your login"
+                    label="Login or Email"
+                    placeholder="Enter your login or email"
                     control={control}
-                    name="login"
-                    Icon={AuthEmail}
+                    name="loginOrEmail"
+                    Icon={User}
                 />
                 <ControlledTextField
                     label="Password"

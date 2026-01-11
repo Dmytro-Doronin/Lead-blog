@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
 
-import type { RegisterTypes, UserType } from '../../api/auth/types.ts';
+import type { LoginType, RegisterTypes, UserType } from '../../api/auth/types.ts';
 
 import { Login, Logout, Me, Registration } from '../../api/auth/AuthApi.ts';
 import { getErrorMessage } from '../../helpers/ErrorHelper.ts';
@@ -17,20 +17,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const isAuth = !!user;
 
-    const fetchMe = useCallback(async () => {
-        try {
-            const user = await Me();
-            setUser(user);
-        } catch (err) {
-            const msg = getErrorMessage(err);
-            notify({ variant: 'error', message: msg || 'Unknown error' });
-            setUser(null);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [notify]);
+    const fetchMe = useCallback(
+        async (silent = false) => {
+            try {
+                const user = await Me();
+                setUser(user);
+            } catch (err) {
+                setUser(null);
+                if (!silent) {
+                    const msg = getErrorMessage(err);
+                    notify({ variant: 'error', message: msg || 'Unknown error' });
+                }
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [notify],
+    );
 
-    const login = async (data: { login: string; password: string }) => {
+    const login = async (data: LoginType) => {
         setIsLocalLoading(true);
         try {
             const accessToken = await Login(data);
@@ -75,7 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         const token = Cookies.get('accessToken');
         if (token) {
-            fetchMe();
+            fetchMe(true);
         } else {
             setIsLoading(false);
         }

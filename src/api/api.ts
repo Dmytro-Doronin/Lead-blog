@@ -10,7 +10,7 @@ type QueueItem = {
 
 export const apiPublic = axios.create({
     baseURL: 'https://blog-backend-nest.vercel.app',
-    withCredentials: true,
+    withCredentials: false,
 });
 
 export const apiProtected = axios.create({
