@@ -5,12 +5,15 @@ import * as React from 'react';
 import type { RegisterTypes, UserType } from '../../api/auth/types.ts';
 
 import { Login, Logout, Me, Registration } from '../../api/auth/AuthApi.ts';
+import { getErrorMessage } from '../../helpers/ErrorHelper.ts';
+import { useNotification } from '../../hooks/useNotification.tsx';
 import { AuthContext } from './AuthContext.tsx';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<UserType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isLocalLoading, setIsLocalLoading] = useState(false);
+    const { notify } = useNotification();
 
     const isAuth = !!user;
 
@@ -18,12 +21,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             const user = await Me();
             setUser(user);
-        } catch {
+        } catch (err) {
+            const msg = getErrorMessage(err);
+            notify({ variant: 'error', message: msg || 'Unknown error' });
             setUser(null);
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [notify]);
 
     const login = async (data: { login: string; password: string }) => {
         setIsLocalLoading(true);
@@ -31,8 +36,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             const accessToken = await Login(data);
             Cookies.set('accessToken', accessToken, { secure: true, sameSite: 'Strict' });
             await fetchMe();
+            notify({ message: 'Login successful', variant: 'success', duration: 4000 });
             setIsLocalLoading(false);
-        } catch {
+        } catch (err) {
+            const msg = getErrorMessage(err);
+            notify({ variant: 'error', message: msg || 'Unknown error' });
             setIsLocalLoading(false);
         }
     };
@@ -40,9 +48,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const registration = async (data: RegisterTypes) => {
         setIsLocalLoading(true);
         try {
-            await Registration(data);
+            const request = await Registration(data);
+            if (request !== null) {
+                notify({ message: 'Registration successful', variant: 'success', duration: 4000 });
+            }
             setIsLocalLoading(false);
-        } catch {
+        } catch (err) {
+            const msg = getErrorMessage(err);
+            notify({ variant: 'error', message: msg || 'Unknown error' });
             setIsLocalLoading(false);
         }
     };
@@ -52,8 +65,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             await Logout();
             Cookies.remove('accessToken');
             setUser(null);
-        } catch {
-            throw new Error('Logout Error');
+            notify({ message: 'Logout successful', variant: 'success', duration: 4000 });
+        } catch (err) {
+            const msg = getErrorMessage(err);
+            notify({ variant: 'error', message: msg || 'Unknown error' });
         }
     };
 
