@@ -8,3 +8,11 @@ export type RegisterTypes = {
     password: string;
     email: string;
 };
+
+export type UserType = {
+    email: string;
+    login: string;
+    userId: string;
+    deviceId: string;
+    imageUrl: string;
+};
