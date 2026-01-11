@@ -45,11 +45,17 @@
 }
 
 .secondary {
-    background-color: hsl(var(--color-default) / 1);
-    color: hsl(var(--color-default-foreground) / 1);
+    background-color: var(--color-main);
     line-height: rem(25);
     &:hover {
-        background-color: hsl(var(--color-default-300) / 1);
+        background-color: var(--color-secondary);
+    }
+}
+
+.special {
+    background-color: transparent;
+    &:hover {
+        background-color: var(--color-secondary);
     }
 }
 

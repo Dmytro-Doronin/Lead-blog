@@ -5,7 +5,7 @@ import styles from './button.module.scss';
 export type ButtonProps<T extends ElementType = 'button'> = {
     as?: T;
     children: ReactNode;
-    variant?: 'primary' | 'secondary' | 'transparent';
+    variant?: 'primary' | 'secondary' | 'transparent' | 'special';
     fullWidth?: boolean;
     className?: string;
 } & ComponentPropsWithoutRef<T>;

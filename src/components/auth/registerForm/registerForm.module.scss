@@ -15,8 +15,8 @@
 }
 
 .infoGroup {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: rem(10);
     margin-top: rem(20);
     font-size: rem(11);

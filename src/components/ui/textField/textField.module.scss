@@ -8,19 +8,13 @@
     border-radius: rem(38);
     border: rem(2) solid hsl(var(--color-default-200) / 1);
     transition: var(--transition);
+    background-color: var(--color-secondary);
     &:hover {
         border: rem(2) solid hsl(var(--color-primary) / 1);
         cursor: text;
-        .icon {
-            color: hsl(var(--color-primary) / 1);
-        }
     }
     &:focus-within {
-        border: rem(2) solid hsl(var(--color-primary) / 1);
         background-color: inherit;
-        .icon {
-            color: hsl(var(--color-primary) / 1);
-        }
     }
 }
 
@@ -37,15 +31,13 @@
 
 .containerFocused {
     border-color: var(--color-outline-focus);
-    outline: rem(1) solid var(--color-outline-focus);
+    outline: rem(1) solid var(--color-light-700);
 }
 
 .field {
     width: 100%;
     font-family: inherit;
     font-size: rem(14);
-    //font-weight: 400;
-    //line-height: rem(24);
     color: var(--color-light-100);
     padding-right: rem(10);
     border: none;
@@ -59,7 +51,7 @@
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus,
     &:-webkit-autofill:active {
-        box-shadow: 0 0 0 30px hsl(var(--color-content1) / 1) inset !important;
+        box-shadow: 0 0 0 30px var(--color-secondary) inset !important;
         -webkit-text-fill-color: white;
         border-color: rem(1) solid var(--color-light-100);
     }

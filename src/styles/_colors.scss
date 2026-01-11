@@ -1,5 +1,6 @@
 :root {
     --color-main: #050814;
+    --color-secondary: #191522;
     --color-danger: #f7374f;
     --color-success-100: #4caf50;
     --colog-gray: #9ca4ab;
@@ -12,6 +13,8 @@
     --color-light-500: #5ce1e6;
     --color-light-600: #5ce1e6;
     --color-light-700: #33bbcf;
+
+    --bg-gray-gradient: linear-gradient(90deg, #393640 0%, #282430 50%, #191522 100%);
 
     --bg-light-gradient: linear-gradient(
         90deg,

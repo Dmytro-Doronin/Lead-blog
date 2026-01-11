@@ -11,7 +11,7 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
         {...props}
         ref={ref}
         stroke="currentColor"
-        fill="hsl(var(--color-primary))"
+        fill="var(--color-light-100)"
         strokeWidth="0"
         viewBox="0 0 256 256"
         className="m-auto md:block"

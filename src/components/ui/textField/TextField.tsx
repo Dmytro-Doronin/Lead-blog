@@ -10,8 +10,6 @@ import {
 } from 'react';
 import * as React from 'react';
 
-import ClosedEye from '../../icons/ClosedEye.tsx';
-import Eye from '../../icons/Eye.tsx';
 import { Typography } from '../typography/Typography.tsx';
 import styles from './textField.module.scss';
 
@@ -103,7 +101,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
                                 type={'button'}
                                 onClick={() => setShowPassword((prev) => !prev)}
                             >
-                                {showPassword ? <ClosedEye /> : <Eye />}
+                                {/*{showPassword ? <ClosedEye /> : <Eye />}*/}
                             </button>
                         )}
                     </div>

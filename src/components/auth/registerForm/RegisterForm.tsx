@@ -1,29 +1,31 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import type { LoginType } from '../../../api/auth/types.ts';
-import type { FormValues } from './loginFormTypes.ts';
+import type { RegisterTypes } from '../../../api/auth/types.ts';
+import type { FormValues } from './registerFormTypes.ts';
 
 import AuthEmail from '../../icons/AuthEmail.tsx';
 import Lock from '../../icons/Lock.tsx';
+import User from '../../icons/User.tsx';
 import { Loader } from '../../loader/Loader.tsx';
 import { Button } from '../../ui/button/Button.tsx';
 import { ControlledTextField } from '../../ui/controlled/ControlledTextField.tsx';
 import { Typography } from '../../ui/typography/Typography.tsx';
-import styles from './loginForm.module.scss';
-import { loginSchema } from './loginForm.validation.ts';
+import styles from './registerForm.module.scss';
+import { signUpSchema } from './registerForm.validation.ts';
 
 type LoginFormType = {
     isLoading: boolean;
-    onSubmit: (data: LoginType) => void;
+    onSubmit: (data: RegisterTypes) => void;
 };
 
-export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
+export const RegisterForm = ({ onSubmit, isLoading }: LoginFormType) => {
     const { control, handleSubmit, reset } = useForm<FormValues>({
-        resolver: zodResolver(loginSchema),
+        resolver: zodResolver(signUpSchema),
         defaultValues: {
             login: '',
+            email: '',
             password: '',
         },
     });
@@ -35,15 +37,24 @@ export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmitForm)}>
-            <Typography variant={'h2'}>Login</Typography>
+            <Typography variant={'h2'}>Registration</Typography>
             <div className={styles.inputGroup}>
                 <ControlledTextField
                     label="Login"
                     placeholder="Enter your login"
                     control={control}
                     name="login"
+                    Icon={User}
+                />
+
+                <ControlledTextField
+                    label="Email"
+                    placeholder="Enter your email"
+                    control={control}
+                    name="email"
                     Icon={AuthEmail}
                 />
+
                 <ControlledTextField
                     label="Password"
                     placeholder="Enter your password"
@@ -53,18 +64,23 @@ export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
                     Icon={Lock}
                 />
             </div>
-            <Button disabled={isLoading} variant="special" type="button" fullWidth>
-                <Typography variant="body1">Forgot password</Typography>
+            <Button variant="primary" fullWidth disabled={isLoading} type="submit">
+                Registration
             </Button>
             <div className={styles.infoGroup}>
-                <Button disabled={isLoading} type="submit">
+                <Typography className={styles.info} variant="body2">
+                    Already have an account?
+                </Typography>
+                <Button variant="secondary" as={Link} to="/login">
                     <Typography variant="body1">Log in</Typography>
                 </Button>
-                <Button as={NavLink} to="/register" variant="secondary" type="button">
-                    <Typography variant="body1">Sign up</Typography>
-                </Button>
             </div>
-            {isLoading && <Loader />}
+
+            {isLoading && (
+                <div className={styles.loaderWrapper}>
+                    <Loader />
+                </div>
+            )}
         </form>
     );
 };

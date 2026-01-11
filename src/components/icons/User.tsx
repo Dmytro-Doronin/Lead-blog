@@ -10,16 +10,16 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
     <svg
         {...props}
         ref={ref}
-        stroke="currentColor"
-        fill="var(--color-light-100)"
-        strokeWidth="0"
-        viewBox="0 0 256 256"
-        className="m-auto md:block"
-        height="30"
-        width="30"
         xmlns="http://www.w3.org/2000/svg"
+        width="1em"
+        height="1em"
+        viewBox="0 0 16 16"
+        {...props}
     >
-        <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"></path>
+        <path
+            fill="currentColor"
+            d="M8 0C2.4 0 5.1 7.3 5.1 7.3c.6 1 1.4.8 1.4 1.5c0 .6-.7.8-1.4.9C4 9.7 3 9.5 2 11.3c-.6 1.1-.9 4.7-.9 4.7h13.7s-.3-3.6-.8-4.7c-1-1.9-2-1.6-3.1-1.7c-.7-.1-1.4-.3-1.4-.9s.8-.4 1.4-1.5C10.9 7.3 13.6 0 8 0z"
+        ></path>
     </svg>
 );
 const SvgIcon = memo(forwardRef(SvgComponent)) as MemoExoticComponent<
