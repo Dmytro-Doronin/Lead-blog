@@ -7,7 +7,6 @@ import { useAuth } from '../../hooks/useAuthContext.tsx';
 export const LoginPage = () => {
     const { login, isLocalLoading } = useAuth();
     const onFormSubmit = (data: LoginType) => {
-        console.log(data);
         login(data);
     };
 

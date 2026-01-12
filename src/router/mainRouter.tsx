@@ -8,7 +8,7 @@ export function Router() {
     return (
         <NotificationProvider>
             <AuthProvider>
-                <RouterProvider router={router} />;
+                <RouterProvider router={router} />
             </AuthProvider>
         </NotificationProvider>
     );
