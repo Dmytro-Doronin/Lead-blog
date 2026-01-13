@@ -1,2 +1,55 @@
+@use '../../styles/helpers' as *;
+
 .card {
+    display: grid;
+    //grid-template-rows: 60% 50%;
+    width: rem(350);
+    border-radius: rem(10);
+    overflow: hidden;
+}
+
+.imageWrapper {
+    width: 100%;
+}
+
+.titles {
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+}
+
+.imageWrapper > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    padding: rem(20) rem(22) rem(15) rem(8);
+    background: var(--bg-gray-gradient);
+}
+
+.name {
+    font-family: 'Lato', sans-serif;
+    font-size: rem(24);
+    color: var(--color-light-700);
+}
+
+.description {
+    font-family: 'SourceSans3', sans-serif;
+    font-size: rem(16);
+    color: var(--color-light-700);
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+
+    overflow: hidden;
+}
+
+.userName {
+    color: var(--color-light-500);
 }

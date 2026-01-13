@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { CardList } from '../../components/cardList/CardList.tsx';
 import { Loader } from '../../components/loader/Loader.tsx';
 import { useBlogQuery } from '../../hooks/blogsHooks/useBlogQuery.tsx';
 
@@ -26,9 +27,7 @@ export const BlogsPage = () => {
         <div>
             {isFetching && <div>Light Updating...</div>}
 
-            {data.items.map((b) => (
-                <div key={b.id}>{b.name}</div>
-            ))}
+            <CardList items={data.items} />
 
             <button onClick={() => setPageNumber((p) => p + 1)}>Next page</button>
         </div>

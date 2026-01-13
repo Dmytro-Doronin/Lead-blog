@@ -1,0 +1,16 @@
+@use '../../styles/helpers' as *;
+
+.wrapper {
+    display: grid;
+    grid-template-columns: rem(200) 1fr;
+}
+
+.aside {
+    padding: 0 rem(10) rem(10) 0;
+    height: calc(90vh - var(--header-height));
+    border-right: rem(1) solid var(--color-light-700);
+}
+
+.main {
+    padding: 0 0 rem(50) rem(40);
+}

@@ -1,15 +1,19 @@
 import { Outlet, NavLink } from 'react-router-dom';
+
+import styles from './appLayout.module.scss';
 export const AppLayout = () => {
     return (
         <div className="container">
-            <aside className="aside">
-                <NavLink to="/blogs">Blogs</NavLink>
-                <NavLink to="/posts">Posts</NavLink>
-            </aside>
+            <div className={styles.wrapper}>
+                <aside className={styles.aside}>
+                    <NavLink to="/blogs">Blogs</NavLink>
+                    <NavLink to="/posts">Posts</NavLink>
+                </aside>
 
-            <main>
-                <Outlet />
-            </main>
+                <main className={styles.main}>
+                    <Outlet />
+                </main>
+            </div>
         </div>
     );
 };
