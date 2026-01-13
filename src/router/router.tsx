@@ -1,7 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { AppLayout } from '../layout/appLayout/AppLayout.tsx';
-import { RequireAuth } from '../layout/appLayout/RequireAuth.tsx';
 import { AuthLayout } from '../layout/authLayout/AuthLayout.tsx';
 import { RootLayout } from '../layout/rootLayout/RootLayout.tsx';
 import { BlogsPage } from '../pages/blogsPage/BlogsPage.tsx';
@@ -22,18 +21,26 @@ export const router = createBrowserRouter([
                 ],
             },
             {
-                path: '/',
-                element: (
-                    <RequireAuth>
-                        <AppLayout />
-                    </RequireAuth>
-                ),
+                element: <AppLayout />,
                 children: [
-                    { index: true, element: <Navigate to="blogs" replace /> },
-                    { path: 'blogs', element: <BlogsPage /> },
-                    { path: 'posts', element: <PostsPage /> },
+                    { index: true, element: <Navigate to="/blogs" replace /> },
+                    { path: '/blogs', element: <BlogsPage /> },
+                    { path: '/posts', element: <PostsPage /> },
                 ],
             },
+            // {
+            //     path: '/',
+            //     element: (
+            //         <RequireAuth>
+            //             <AppLayout />
+            //         </RequireAuth>
+            //     ),
+            //     children: [
+            //         { index: true, element: <Navigate to="blogs" replace /> },
+            //         { path: 'blogs', element: <BlogsPage /> },
+            //         { path: 'posts', element: <PostsPage /> },
+            //     ],
+            // },
         ],
     },
 ]);

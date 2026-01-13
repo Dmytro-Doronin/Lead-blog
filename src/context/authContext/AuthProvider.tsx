@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import type { LoginType, RegisterTypes, UserType } from '../../api/auth/types.ts';
 
-import { Login, Logout, Me, Registration } from '../../api/auth/AuthApi.ts';
+import { Login, Logout, Me, Registration } from '../../api/auth/authApi.ts';
 import { getErrorMessage } from '../../helpers/ErrorHelper.ts';
 import { useNotification } from '../../hooks/useNotification.tsx';
 import { AuthContext } from './AuthContext.tsx';

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-import { GetRefreshToken } from './auth/AuthApi.ts';
+import { GetRefreshToken } from './auth/authApi.ts';
 
 type QueueItem = {
     resolve: (token: string | null) => void;
