@@ -1,15 +1,12 @@
-import { useState } from 'react';
-
 import { CardList } from '../../components/cardList/CardList.tsx';
 import { Loader } from '../../components/loader/Loader.tsx';
+import { Button } from '../../components/ui/button/Button.tsx';
 import { useBlogQuery } from '../../hooks/blogsHooks/useBlogQuery.tsx';
+import styles from './blogPage.module.scss';
 
 export const BlogsPage = () => {
-    const [pageNumber, setPageNumber] = useState(1);
-
-    const { data, isLoading, isFetching } = useBlogQuery({
-        pageNumber,
-        pageSize: 10,
+    const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useBlogQuery({
+        pageSize: 6,
         sortBy: 'createdAt',
         sortDirection: 'desc',
         searchNameTerm: '',
@@ -23,13 +20,20 @@ export const BlogsPage = () => {
         return <div>No blogs</div>;
     }
 
+    const items = data?.pages.flatMap((p) => p.items) ?? [];
+
     return (
-        <div>
-            {isFetching && <div>Light Updating...</div>}
+        <div className={styles.page}>
+            <CardList items={items} />
 
-            <CardList items={data.items} />
-
-            <button onClick={() => setPageNumber((p) => p + 1)}>Next page</button>
+            {hasNextPage && (
+                <Button
+                    onClick={() => fetchNextPage()}
+                    disabled={!hasNextPage || isFetchingNextPage}
+                >
+                    {isFetchingNextPage ? 'Loading...' : 'Load more'}
+                </Button>
+            )}
         </div>
     );
 };

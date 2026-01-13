@@ -1,7 +1,7 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
-import type { BlogsQueryParams } from '../../api/blogs/blogsTypes.ts';
+import type { BlogFinalType, BlogsQueryParams } from '../../api/blogs/blogsTypes.ts';
 
 import { fetchBlogs } from '../../api/blogs/blogsApi.ts';
 import { getErrorMessage } from '../../helpers/ErrorHelper.ts';
@@ -12,11 +12,15 @@ export const useBlogQuery = (params: BlogsQueryParams) => {
     const { notify } = useNotification();
     const errorNotifiedRef = useRef(false);
 
-    const query = useQuery({
+    const query = useInfiniteQuery({
         queryKey: blogsKeys.list(params),
-        queryFn: () => fetchBlogs(params),
-        staleTime: 30_000,
+        initialPageParam: 1,
+        queryFn: ({ pageParam }) => fetchBlogs({ ...params, pageNumber: pageParam as number }),
+        getNextPageParam: (lastPage: BlogFinalType) => {
+            return lastPage.page < lastPage.pagesCount ? lastPage.page + 1 : undefined;
+        },
         placeholderData: keepPreviousData,
+        staleTime: 30_000,
     });
 
     useEffect(() => {
