@@ -5,16 +5,19 @@ import { Loader } from '../../components/loader/Loader.tsx';
 import { PageHeader } from '../../components/pageHeader/PageHeader.tsx';
 import { Button } from '../../components/ui/button/Button.tsx';
 import { useBlogQuery } from '../../hooks/blogsHooks/useBlogQuery.tsx';
+import { useDebounce } from '../../hooks/useDebaunce.tsx';
 import styles from './blogPage.module.scss';
 
 export const BlogsPage = () => {
     const [term, setTerm] = useState<string>('');
-    const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useBlogQuery({
-        pageSize: 6,
-        sortBy: 'createdAt',
-        sortDirection: 'desc',
-        searchNameTerm: term,
-    });
+    const debouncedTerm = useDebounce(term, 400);
+    const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+        useBlogQuery({
+            pageSize: 6,
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+            searchNameTerm: debouncedTerm,
+        });
 
     const onSetTerm = (term: string) => {
         setTerm(term);
@@ -28,11 +31,12 @@ export const BlogsPage = () => {
         return <div>No blogs</div>;
     }
 
-    const items = data?.pages.flatMap((p) => p.items) ?? [];
+    const items = data?.pages.flatMap((page) => page.items) ?? [];
 
     return (
         <div className={styles.page}>
             <PageHeader title="All blogs" searchCallback={onSetTerm} />
+            {isFetching && !isFetchingNextPage && <div>Searching...</div>}
             <CardList items={items} />
 
             {hasNextPage && (
