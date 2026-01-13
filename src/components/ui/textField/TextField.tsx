@@ -17,6 +17,7 @@ export type TextFieldProps = {
     onValueChange?: (value: string) => void;
     containerProps?: string;
     errorMessage?: string;
+    containerClassName?: string;
     label?: string;
     iconClassName?: string;
     Icon?: MemoExoticComponent<
@@ -39,6 +40,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             onChange,
             onValueChange,
             iconClassName,
+            containerClassName,
             ...restProps
         },
         ref,
@@ -70,13 +72,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         return (
             <>
                 <div
-                    className={`${styles.root} ${containerProps}`}
+                    className={`${styles.root} ${containerProps} ${containerClassName ?? ''}`}
                     onClick={() => inputRef.current?.focus()}
                 >
                     <div
                         onFocus={focusedHandler}
                         onBlur={unFocusedHandler}
-                        className={containerTypeStyle}
+                        className={`${containerTypeStyle} ${containerClassName ?? ''}`}
                     >
                         <div className={styles.inputContainer}>
                             {label && (
@@ -106,7 +108,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
                         )}
                     </div>
                 </div>
-                <span className={errorMessage ? 'error' : ''}>{errorMessage}</span>
+                {errorMessage && <span className="error">{errorMessage}</span>}
             </>
         );
     },

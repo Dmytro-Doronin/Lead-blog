@@ -1,0 +1,22 @@
+@use '../../styles/helpers' as *;
+
+.pageHeader {
+    width: 100%;
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    background: var(--bg-light-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.search {
+    background: var(--bg-gray-gradient);
+    width: rem(342);
+}

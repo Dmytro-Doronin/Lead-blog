@@ -57,13 +57,14 @@
     }
 
     &::placeholder {
+        font-family: 'SourceSans3', sans-serif;
         transition: var(--transition);
         color: rgba(255, 255, 255, 0.5);
         font-size: rem(14);
     }
 
     &.error {
-        color: hsl(var(--color-danger) / 1);
+        color: var(--color-danger);
         border-color: var(--color-accent);
     }
 }
