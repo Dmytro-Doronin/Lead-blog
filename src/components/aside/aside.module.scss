@@ -1,0 +1,22 @@
+@use '../../styles/helpers' as *;
+
+.aside {
+    position: sticky;
+    top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 rem(10) rem(10) 0;
+    height: calc(100vh - var(--header-height));
+    border-right: none;
+}
+
+.link {
+    padding: rem(10) rem(10) rem(10) rem(10);
+    transition: background 0.3s ease-in-out;
+    border-radius: rem(5);
+    &:hover {
+        color: var(--color-main);
+        background: var(--bg-light-gradient);
+    }
+}

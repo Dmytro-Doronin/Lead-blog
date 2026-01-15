@@ -1,16 +1,15 @@
 @use '../../styles/helpers' as *;
 
 .wrapper {
+    position: relative;
     display: grid;
     grid-template-columns: rem(200) 1fr;
 }
 
-.aside {
-    padding: 0 rem(10) rem(10) 0;
-    height: calc(90vh - var(--header-height));
-    border-right: rem(1) solid var(--color-light-700);
-}
-
 .main {
-    padding: 0 0 rem(50) rem(40);
+    //background-color: var(--lighter-main);
+    background-color: var(--color-main);
+    border-radius: rem(12);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    padding: rem(24) rem(24) rem(50) rem(40);
 }

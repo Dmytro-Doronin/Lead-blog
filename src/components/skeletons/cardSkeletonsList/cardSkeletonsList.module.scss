@@ -1,0 +1,7 @@
+@use '../../../styles/helpers' as *;
+
+.carfList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(20);
+}

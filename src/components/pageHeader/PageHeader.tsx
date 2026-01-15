@@ -16,6 +16,7 @@ export const PageHeader = ({ title, searchCallback }: PageHeaderProps) => {
             </Typography>
             {searchCallback && (
                 <TextField
+                    placeholder="Search..."
                     containerClassName={styles.search}
                     onValueChange={searchCallback}
                     Icon={SearchIcon}

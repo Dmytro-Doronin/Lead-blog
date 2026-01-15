@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { CardList } from '../../components/cardList/CardList.tsx';
-import { Loader } from '../../components/loader/Loader.tsx';
 import { PageHeader } from '../../components/pageHeader/PageHeader.tsx';
+import { CardSkeletonsList } from '../../components/skeletons/cardSkeletonsList/CardSkeletonsList.tsx';
 import { Button } from '../../components/ui/button/Button.tsx';
 import { useBlogQuery } from '../../hooks/blogsHooks/useBlogQuery.tsx';
 import { useDebounce } from '../../hooks/useDebaunce.tsx';
@@ -23,21 +23,18 @@ export const BlogsPage = () => {
         setTerm(term);
     };
 
-    if (isLoading) {
-        return <Loader />;
-    }
-
-    if (!data) {
-        return <div>No blogs</div>;
-    }
-
     const items = data?.pages.flatMap((page) => page.items) ?? [];
-
+    const showSkeletonForList = isLoading || (isFetching && !isFetchingNextPage);
     return (
         <div className={styles.page}>
             <PageHeader title="All blogs" searchCallback={onSetTerm} />
-            {isFetching && !isFetchingNextPage && <div>Searching...</div>}
-            <CardList items={items} />
+            {showSkeletonForList ? (
+                <CardSkeletonsList />
+            ) : items.length ? (
+                <CardList items={items} />
+            ) : (
+                <div>No blogs</div>
+            )}
 
             {hasNextPage && (
                 <Button

@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
+import { AuthProvider } from '../context/authContext/AuthProvider.tsx';
 import { AppLayout } from '../layout/appLayout/AppLayout.tsx';
 import { AuthLayout } from '../layout/authLayout/AuthLayout.tsx';
 import { RootLayout } from '../layout/rootLayout/RootLayout.tsx';
@@ -10,7 +11,11 @@ import { RegisterPage } from '../pages/registerPage/RegisterPage.tsx';
 
 export const router = createBrowserRouter([
     {
-        element: <RootLayout />,
+        element: (
+            <AuthProvider>
+                <RootLayout />
+            </AuthProvider>
+        ),
         errorElement: <div>Page not found</div>,
         children: [
             {

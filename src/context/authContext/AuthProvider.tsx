@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import type { LoginType, RegisterTypes, UserType } from '../../api/auth/types.ts';
 
@@ -14,7 +15,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLocalLoading, setIsLocalLoading] = useState(false);
     const { notify } = useNotification();
-
+    const navigate = useNavigate();
     const isAuth = !!user;
 
     const fetchMe = useCallback(
@@ -43,6 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             await fetchMe();
             notify({ message: 'Login successful', variant: 'success', duration: 4000 });
             setIsLocalLoading(false);
+            navigate('/blogs', { replace: true });
         } catch (err) {
             const msg = getErrorMessage(err);
             notify({ variant: 'error', message: msg || 'Unknown error' });

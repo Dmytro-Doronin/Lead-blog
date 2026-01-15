@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import type { BlogType } from '../../api/blogs/blogsTypes.ts';
 
 import { formatDate } from '../../helpers/dataHelper.ts';
@@ -9,10 +11,20 @@ type CardProps = {
 };
 
 export const Card = ({ item }: CardProps) => {
+    const [loaded, setLoaded] = useState(false);
     return (
         <div className={styles.card}>
             <div className={styles.imageWrapper}>
-                <img src={item.imageUrl} alt={item.imageUrl} />
+                {!loaded && <div className={styles.imageSkeleton} />}
+                <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className={`${styles.image} ${loaded ? styles.imageLoaded : ''}`}
+                    loading="lazy"
+                    decoding="async"
+                    onLoad={() => setLoaded(true)}
+                    onError={() => setLoaded(true)}
+                />
             </div>
             <div className={styles.cardBody}>
                 <div className={styles.titles}>
