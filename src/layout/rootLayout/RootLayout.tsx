@@ -10,7 +10,7 @@ export function RootLayout() {
 
     return (
         <div className={styles.rootLayout}>
-            <Header isAuth={isAuth} user={user} logout={logout} />
+            <Header isAuth={isAuth} user={user} logout={logout} loading={isLoading} />
             {isLoading && <AppLoader />}
             <Outlet />
         </div>

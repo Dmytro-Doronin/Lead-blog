@@ -68,6 +68,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const logout = async () => {
+        setIsLoading(true);
         try {
             await Logout();
             Cookies.remove('accessToken');
@@ -76,6 +77,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         } catch (err) {
             const msg = getErrorMessage(err);
             notify({ variant: 'error', message: msg || 'Unknown error' });
+        } finally {
+            setIsLoading(false);
         }
     };
 
