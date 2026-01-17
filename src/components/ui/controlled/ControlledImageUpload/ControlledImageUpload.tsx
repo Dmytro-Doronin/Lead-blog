@@ -1,18 +1,21 @@
-import { type ChangeEvent, useRef, useState } from 'react';
+import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useController, type Control, type FieldValues, type Path } from 'react-hook-form';
 
-import { Button } from '../../button/Button.tsx';
+import { Button } from '../../button/Button';
 import styles from './ControlledImageUpload.module.scss';
+
 type Props<T extends FieldValues> = {
     name: Path<T>;
     control: Control<T>;
     label: string;
+    accept?: string;
 };
 
 export const ControlledImageUpload = <T extends FieldValues>({
     name,
     control,
     label,
+    accept = 'image/png,image/jpeg',
 }: Props<T>) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
@@ -22,39 +25,56 @@ export const ControlledImageUpload = <T extends FieldValues>({
         fieldState: { error },
     } = useController({ name, control });
 
+    useEffect(() => {
+        return () => {
+            if (preview) {
+                URL.revokeObjectURL(preview);
+            }
+        };
+    }, [preview]);
+
     const handleSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
+        const file = e.target.files?.[0] ?? null;
+        e.target.value = '';
+
+        if (preview) {
+            URL.revokeObjectURL(preview);
+        }
+
+        onChange(file);
+
         if (file) {
-            onChange([file]);
             setPreview(URL.createObjectURL(file));
+        } else {
+            setPreview(null);
         }
     };
 
-    const triggerFileDialog = () => {
-        inputRef.current?.click();
-    };
+    const triggerFileDialog = () => inputRef.current?.click();
+
+    const hasPreview = !!preview;
 
     return (
         <div className={styles.uploadWrapper}>
             <Button variant="secondary" type="button" onClick={triggerFileDialog}>
-                {preview ? 'Change Image' : label}
+                {hasPreview ? 'Change Image' : label}
             </Button>
 
             <input
                 ref={inputRef}
                 type="file"
-                accept="image/*"
+                accept={accept}
                 onChange={handleSelectFile}
                 className={styles.input}
             />
 
-            {preview && (
+            {hasPreview && (
                 <div className={styles.imageWrapper}>
-                    <img src={preview} alt="preview" style={{ maxWidth: '200px' }} />
+                    <img src={preview} alt="preview" className={styles.previewImg} />
                 </div>
             )}
 
-            {error && <p className={styles.error}>{error.message}</p>}
+            {error?.message && <p className="error">{error.message}</p>}
         </div>
     );
 };

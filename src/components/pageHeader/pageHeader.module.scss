@@ -16,6 +16,12 @@
     -webkit-text-fill-color: transparent;
 }
 
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    gap: rem(20);
+}
+
 .search {
     background: var(--bg-gray-gradient);
     width: rem(342);

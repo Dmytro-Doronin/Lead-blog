@@ -27,3 +27,10 @@ export type BlogsQueryParams = {
     pageNumber?: number;
     pageSize?: number;
 };
+
+export interface MutationBlogType {
+    name: string;
+    description: string;
+    websiteUrl: string;
+    file: File | null;
+}
