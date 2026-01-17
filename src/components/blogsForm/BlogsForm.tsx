@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import type { MutationBlogType } from '../../api/blogs/blogsTypes.ts';
 import type { BlogsFormValues } from './BlogsFormTypes.ts';
 
 import { Loader } from '../loader/Loader.tsx';
+import { Button } from '../ui/button/Button.tsx';
 import { ControlledImageUpload } from '../ui/controlled/ControlledImageUpload/ControlledImageUpload.tsx';
 import { ControlledTextField } from '../ui/controlled/ControlledTextField.tsx';
 import styles from './blogsForm.module.scss';
@@ -12,7 +12,7 @@ import { blogsSchema } from './blogsForm.validation.ts';
 
 type BlogsFormType = {
     isLoading: boolean;
-    onSubmit: (data: MutationBlogType) => void;
+    onSubmit: (data: FormData) => Promise<void>;
 };
 
 export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
@@ -31,7 +31,7 @@ export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
         },
     });
 
-    const onSubmitForm = (data: BlogsFormValues) => {
+    const onSubmitForm = async (data: BlogsFormValues) => {
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('description', data.description);
@@ -39,7 +39,7 @@ export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
         if (data.file) {
             formData.append('image', data.file);
         }
-        onSubmit(data);
+        await onSubmit(formData);
         reset();
     };
 
@@ -77,6 +77,7 @@ export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
                 <ControlledImageUpload control={control} name="file" label="Upload image" />
                 {isLoading && <Loader />}
             </div>
+            <Button type="submit">Add blog</Button>
         </form>
     );
 };

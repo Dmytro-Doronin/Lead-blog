@@ -1,6 +1,6 @@
-import type { BlogFinalType, BlogsQueryParams } from './blogsTypes.ts';
+import type { BlogFinalType, BlogsQueryParams, BlogType } from './blogsTypes.ts';
 
-import { apiPublic } from '../api.ts';
+import { apiPublic, apiProtected } from '../api.ts';
 
 export const fetchBlogs = async (params: BlogsQueryParams): Promise<BlogFinalType> => {
     const { data } = await apiPublic.get<BlogFinalType>('/blogs', {
@@ -12,5 +12,11 @@ export const fetchBlogs = async (params: BlogsQueryParams): Promise<BlogFinalTyp
             pageSize: params.pageSize ?? 10,
         },
     });
+    return data;
+};
+
+export const addBlog = async (formData: FormData): Promise<BlogType> => {
+    const { data } = await apiProtected.post<BlogType>('/blogs', formData);
+
     return data;
 };
