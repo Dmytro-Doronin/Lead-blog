@@ -1,6 +1,6 @@
 @use 'functions' as *;
 
-@mixin media-wrapper($ratio: 16 / 9, $radius: 0) {
+@mixin media-wrapper($ratio: '16 / 9', $radius: 0) {
     width: 100%;
     aspect-ratio: $ratio;
     position: relative;

@@ -2,18 +2,26 @@
 @use '../../styles/helpers/mixins' as ui;
 .card {
     display: grid;
-    //grid-template-rows: 60% 50%;
+    grid-template-rows: 1fr 1fr;
     width: rem(350);
     border-radius: rem(10);
     overflow: hidden;
 }
 
 .imageWrapper {
+    background-color: var(--color-main);
     @include ui.media-wrapper(16 / 9);
 }
 
 .image {
     @include ui.media-img(200ms);
+}
+
+.noImage {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.06) url('../../assets/no-image.png') center / contain
+        no-repeat;
 }
 
 .imageLoaded {
@@ -48,6 +56,7 @@
 
 .cardBody {
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     gap: rem(10);
     padding: rem(20) rem(22) rem(15) rem(8);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import type { BlogType } from '../../api/blogs/blogsTypes.ts';
 
@@ -12,19 +12,43 @@ type CardProps = {
 
 export const Card = ({ item }: CardProps) => {
     const [loaded, setLoaded] = useState(false);
+    const hasImage = !!item.imageUrl;
+    const imgRef = useRef<HTMLImageElement | null>(null);
+    useEffect(() => {
+        setLoaded(!hasImage);
+    }, [hasImage, item.imageUrl]);
+
+    useEffect(() => {
+        if (!hasImage) {
+            return;
+        }
+
+        const img = imgRef.current;
+        if (!img) {
+            return;
+        }
+
+        if (img.complete && img.naturalWidth > 0) {
+            setLoaded(true);
+        }
+    }, [hasImage, item.imageUrl]);
+    const showSkeleton = hasImage && !loaded;
     return (
         <div className={styles.card}>
             <div className={styles.imageWrapper}>
-                {!loaded && <div className={styles.imageSkeleton} />}
-                <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className={`${styles.image} ${loaded ? styles.imageLoaded : ''}`}
-                    loading="lazy"
-                    decoding="async"
-                    onLoad={() => setLoaded(true)}
-                    onError={() => setLoaded(true)}
-                />
+                {showSkeleton && <div className={styles.imageSkeleton} />}
+                {item.imageUrl ? (
+                    <img
+                        src={item.imageUrl}
+                        alt={item.name}
+                        className={`${styles.image} ${loaded ? styles.imageLoaded : ''}`}
+                        onLoad={() => setLoaded(true)}
+                        onError={() => setLoaded(true)}
+                        ref={imgRef}
+                    />
+                ) : (
+                    <div className={styles.noImage} aria-label="No image" />
+                )}
             </div>
             <div className={styles.cardBody}>
                 <div className={styles.titles}>

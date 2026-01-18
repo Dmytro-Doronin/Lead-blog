@@ -21,7 +21,7 @@ export const ControlledImageUpload = <T extends FieldValues>({
     const [preview, setPreview] = useState<string | null>(null);
 
     const {
-        field: { onChange },
+        field: { value, onChange },
         fieldState: { error },
     } = useController({ name, control });
 
@@ -32,6 +32,13 @@ export const ControlledImageUpload = <T extends FieldValues>({
             }
         };
     }, [preview]);
+
+    useEffect(() => {
+        if (!value && preview) {
+            URL.revokeObjectURL(preview);
+            setPreview(null);
+        }
+    }, [value, preview]);
 
     const handleSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
@@ -70,7 +77,7 @@ export const ControlledImageUpload = <T extends FieldValues>({
 
             {hasPreview && (
                 <div className={styles.imageWrapper}>
-                    <img src={preview} alt="preview" className={styles.previewImg} />
+                    <img src={preview} alt="preview" className={styles.image} />
                 </div>
             )}
 
