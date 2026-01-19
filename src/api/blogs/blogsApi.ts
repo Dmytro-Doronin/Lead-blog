@@ -37,3 +37,7 @@ export const editBlog = async ({
     const { data } = await apiProtected.put<BlogType>(`/blogs/${id}`, formData);
     return data;
 };
+
+export const deleteBlog = async ({ id }: { id: string }) => {
+    await apiProtected.delete<BlogType>(`/blogs/${id}`);
+};

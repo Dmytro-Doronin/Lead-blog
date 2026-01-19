@@ -19,7 +19,10 @@ export const Header = ({ isAuth, user, logout, loading }: HeaderProps) => {
         <header className={styles.header}>
             <div className="container">
                 <div className={styles.inner}>
-                    <Logo />
+                    <NavLink to="/blogs">
+                        <Logo />
+                    </NavLink>
+
                     {isAuth ? (
                         <div className={styles.userBlock}>
                             <div>{user?.email}</div>

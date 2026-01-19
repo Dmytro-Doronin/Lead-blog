@@ -1,15 +1,22 @@
 import type { BlogType } from '../../api/blogs/blogsTypes.ts';
 
 import { Card } from '../card/Card.tsx';
+import { CardSkeleton } from '../skeletons/cardSkeleton/CardSkeleton.tsx';
 import styles from './cardList.module.scss';
 
 type CardListProps = {
     items: BlogType[];
     currentUserId?: string;
     onDeleteItem?: (id: string) => void;
+    placeholdersCount: number;
 };
 
-export const CardList = ({ items, currentUserId, onDeleteItem }: CardListProps) => {
+export const CardList = ({
+    items,
+    currentUserId,
+    onDeleteItem,
+    placeholdersCount,
+}: CardListProps) => {
     return (
         <div className={styles.carfList}>
             {items.map((item) => (
@@ -19,6 +26,9 @@ export const CardList = ({ items, currentUserId, onDeleteItem }: CardListProps) 
                     currentUserId={currentUserId}
                     onDeleteItem={onDeleteItem}
                 ></Card>
+            ))}
+            {Array.from({ length: placeholdersCount }).map((_, idx) => (
+                <CardSkeleton key={`card-skeleton-${idx}`} />
             ))}
         </div>
     );

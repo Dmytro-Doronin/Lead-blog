@@ -5,6 +5,7 @@ import { PageHeader } from '../../components/pageHeader/PageHeader.tsx';
 import { CardSkeletonsList } from '../../components/skeletons/cardSkeletonsList/CardSkeletonsList.tsx';
 import { Button } from '../../components/ui/button/Button.tsx';
 import { useBlogQuery } from '../../hooks/blogsHooks/useBlogQuery.tsx';
+import { useDeleteBlogMutation } from '../../hooks/blogsHooks/useDeleteBlogMutation.tsx';
 import { useAuth } from '../../hooks/useAuthContext.tsx';
 import { useDebounce } from '../../hooks/useDebaunce.tsx';
 import styles from './blogPage.module.scss';
@@ -21,22 +22,30 @@ export const BlogsPage = () => {
             searchNameTerm: debouncedTerm,
         });
 
+    const { mutate, isPending } = useDeleteBlogMutation();
+
     const onSetTerm = (term: string) => {
         setTerm(term);
     };
 
     const onDeleteBlog = (id: string) => {
-        console.log('blog deleted', id);
+        mutate({ id });
     };
     const items = data?.pages.flatMap((page) => page.items) ?? [];
     const showSkeletonForList = isLoading || (isFetching && !isFetchingNextPage);
+    const placeholdersCount = isPending || isFetching ? 1 : 0;
     return (
         <div className={styles.page}>
             <PageHeader title="All blogs" searchCallback={onSetTerm} isAuth={isAuth} />
             {showSkeletonForList ? (
                 <CardSkeletonsList />
             ) : items.length ? (
-                <CardList items={items} currentUserId={user?.userId} onDeleteItem={onDeleteBlog} />
+                <CardList
+                    items={items}
+                    currentUserId={user?.userId}
+                    onDeleteItem={onDeleteBlog}
+                    placeholdersCount={placeholdersCount}
+                />
             ) : (
                 <div>No blogs</div>
             )}

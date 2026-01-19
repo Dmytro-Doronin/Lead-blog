@@ -7,13 +7,13 @@ import { useGetBlogQuery } from '../../hooks/blogsHooks/useGetBlogQuery.tsx';
 
 export const EditBlogPage = () => {
     const { id } = useParams<{ id: string }>();
-    const { data: blog } = useGetBlogQuery(id);
+    const { data: blog, isLoading } = useGetBlogQuery(id);
     const { mutateAsync, isPending } = useEditBlogMutation();
     if (!id) {
         return <div>Wrong blog id</div>;
     }
 
-    if (!blog) {
+    if (isLoading) {
         return <Loader />;
     }
 
@@ -21,13 +21,5 @@ export const EditBlogPage = () => {
         await mutateAsync({ id, formData: data });
     };
 
-    return (
-        <BlogsForm
-            key={blog.id}
-            isLoading={isPending}
-            onSubmit={onEditBlog}
-            blog={blog}
-            title="Edit blog"
-        />
-    );
+    return <BlogsForm isLoading={isPending} onSubmit={onEditBlog} blog={blog} title="Edit blog" />;
 };
