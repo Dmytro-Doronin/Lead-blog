@@ -1,0 +1,49 @@
+@use '../../styles/helpers' as *;
+
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.item {
+    display: flex;
+    gap: rem(10);
+    padding: rem(10);
+    border-radius: rem(40);
+    transition: none;
+    &:hover {
+        color: var(--color-main);
+        background-color: var(--color-light-400);
+    }
+}
+
+.icons {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    top: 130%;
+    padding: rem(10);
+    width: rem(150);
+    border-radius: rem(20);
+    background-color: var(--color-main);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.icon {
+    cursor: pointer;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}

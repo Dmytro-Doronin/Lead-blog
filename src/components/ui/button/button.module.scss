@@ -62,4 +62,11 @@
 .transparent {
     background: transparent;
     border: none;
+    font-family: inherit;
+    font-size: inherit;
+    min-width: auto;
+    min-height: auto;
+    padding: 0;
+    justify-content: flex-start;
+    gap: 0;
 }

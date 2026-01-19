@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { BlogType } from '../../api/blogs/blogsTypes.ts';
 
 import { formatDate } from '../../helpers/dataHelper.ts';
+import { ControlPanel } from '../controlPanel/ControlPanel.tsx';
 import { Typography } from '../ui/typography/Typography.tsx';
 import styles from './card.module.scss';
 
@@ -52,6 +53,7 @@ export const Card = ({ item }: CardProps) => {
             </div>
             <div className={styles.cardBody}>
                 <div className={styles.titles}>
+                    <ControlPanel />
                     <Typography variant="body2" className={styles.name}>
                         {item.name}
                     </Typography>
