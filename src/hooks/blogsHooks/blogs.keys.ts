@@ -5,4 +5,5 @@ export const blogsKeys = {
     list: (params: BlogsQueryParams) => ['blogs', 'list', params] as const,
     infinite: (params: Omit<BlogsQueryParams, 'pageNumber'>) =>
         ['blogs', 'infinite', params] as const,
+    byId: (id: string) => ['blogs', 'byId', id] as const,
 };

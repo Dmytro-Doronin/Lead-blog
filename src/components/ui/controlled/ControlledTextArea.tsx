@@ -20,6 +20,7 @@ export const ControlledTextArea = <T extends FieldValues>({
             {...{
                 name,
                 onValueChange: onChange,
+                value: value,
                 values: value,
                 errorMessage: error?.message,
                 ...restProps,

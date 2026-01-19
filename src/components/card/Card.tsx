@@ -9,12 +9,15 @@ import styles from './card.module.scss';
 
 type CardProps = {
     item: BlogType;
+    currentUserId?: string;
+    onDeleteItem?: (id: string) => void;
 };
 
-export const Card = ({ item }: CardProps) => {
+export const Card = ({ item, currentUserId, onDeleteItem }: CardProps) => {
     const [loaded, setLoaded] = useState(false);
     const hasImage = !!item.imageUrl;
     const imgRef = useRef<HTMLImageElement | null>(null);
+    const isCurrentUser = currentUserId === item.userId;
     useEffect(() => {
         setLoaded(!hasImage);
     }, [hasImage, item.imageUrl]);
@@ -53,10 +56,13 @@ export const Card = ({ item }: CardProps) => {
             </div>
             <div className={styles.cardBody}>
                 <div className={styles.titles}>
-                    <ControlPanel />
-                    <Typography variant="body2" className={styles.name}>
-                        {item.name}
-                    </Typography>
+                    <div className={styles.header}>
+                        <Typography variant="body2" className={styles.name}>
+                            {item.name}
+                        </Typography>
+                        {isCurrentUser && <ControlPanel id={item.id} onDelete={onDeleteItem} />}
+                    </div>
+
                     <Typography variant="body1" className={styles.description}>
                         {item.description}
                     </Typography>

@@ -17,6 +17,12 @@
     @include ui.media-img(200ms);
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .noImage {
     width: 100%;
     height: 100%;

@@ -12,7 +12,7 @@ import styles from './blogPage.module.scss';
 export const BlogsPage = () => {
     const [term, setTerm] = useState<string>('');
     const debouncedTerm = useDebounce(term, 400);
-    const { isAuth } = useAuth();
+    const { isAuth, user } = useAuth();
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
         useBlogQuery({
             pageSize: 6,
@@ -25,6 +25,9 @@ export const BlogsPage = () => {
         setTerm(term);
     };
 
+    const onDeleteBlog = (id: string) => {
+        console.log('blog deleted', id);
+    };
     const items = data?.pages.flatMap((page) => page.items) ?? [];
     const showSkeletonForList = isLoading || (isFetching && !isFetchingNextPage);
     return (
@@ -33,7 +36,7 @@ export const BlogsPage = () => {
             {showSkeletonForList ? (
                 <CardSkeletonsList />
             ) : items.length ? (
-                <CardList items={items} />
+                <CardList items={items} currentUserId={user?.userId} onDeleteItem={onDeleteBlog} />
             ) : (
                 <div>No blogs</div>
             )}

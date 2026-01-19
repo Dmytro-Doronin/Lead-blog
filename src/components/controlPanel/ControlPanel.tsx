@@ -10,12 +10,17 @@ import styles from './controlPanel.module.scss';
 
 type ControlPanel = {
     id: string;
-    onDelete: (id: string) => void;
+    onDelete?: (id: string) => void;
 };
 
 export const ControlPanel = ({ id, onDelete }: ControlPanel) => {
     const [openMenu, setOpenMenu] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+    const onItemDelete = () => {
+        onDelete?.(id);
+        setOpenMenu(false);
+    };
 
     useEffect(() => {
         if (!openMenu) {
@@ -48,7 +53,7 @@ export const ControlPanel = ({ id, onDelete }: ControlPanel) => {
                     <Edit className={styles.icon} />
                     <Typography variant="body1">Edit</Typography>
                 </NavLink>
-                <Button className={styles.item} variant="transparent" onClick={() => onDelete(id)}>
+                <Button className={styles.item} variant="transparent" onClick={onItemDelete}>
                     <Delete className={styles.icon} />
                     <Typography variant="body1">Delete</Typography>
                 </Button>

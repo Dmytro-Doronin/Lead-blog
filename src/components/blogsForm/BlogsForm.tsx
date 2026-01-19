@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+import type { BlogType } from '../../api/blogs/blogsTypes.ts';
 import type { BlogsFormValues } from './BlogsFormTypes.ts';
 
 import { Loader } from '../loader/Loader.tsx';
@@ -15,9 +17,11 @@ import { blogsSchema } from './blogsForm.validation.ts';
 type BlogsFormType = {
     isLoading: boolean;
     onSubmit: (data: FormData) => Promise<void>;
+    blog?: BlogType | null;
+    title?: string;
 };
 
-export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
+export const BlogsForm = ({ isLoading, onSubmit, blog, title = 'Add blog' }: BlogsFormType) => {
     const {
         control,
         handleSubmit,
@@ -49,10 +53,23 @@ export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
         }
     };
 
+    useEffect(() => {
+        if (!blog) {
+            return;
+        }
+
+        reset({
+            name: blog.name ?? '',
+            description: blog.description ?? '',
+            websiteUrl: blog.websiteUrl ?? '',
+            file: null,
+        });
+    }, [blog, reset]);
+
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmitForm)}>
             <div className={styles.inputWrapper}>
-                <Typography variant="h2">Add blog</Typography>
+                <Typography variant="h2">{title}</Typography>
                 <ControlledTextField placeholder="Name" control={control} name="name" />
                 <ControlledTextArea
                     placeholder="Description"
@@ -64,27 +81,10 @@ export const BlogsForm = ({ isLoading, onSubmit }: BlogsFormType) => {
                     control={control}
                     name="websiteUrl"
                 />
-                {/*<Controller*/}
-                {/*    name="file"*/}
-                {/*    control={control}*/}
-                {/*    render={({ field }) => (*/}
-                {/*        <>*/}
-                {/*            <InputFile callback={(file) => field.onChange(file)}>*/}
-                {/*                <Button type="button" variant="secondary">*/}
-                {/*                    Upload image*/}
-                {/*                </Button>*/}
-                {/*            </InputFile>*/}
-
-                {/*            {errors.file?.message && (*/}
-                {/*                <div className="error">{errors.file.message}</div>*/}
-                {/*            )}*/}
-                {/*        </>*/}
-                {/*    )}*/}
-                {/*/>*/}
                 <ControlledImageUpload control={control} name="file" label="Upload image" />
                 {isLoading && <Loader />}
             </div>
-            <Button type="submit">Add blog</Button>
+            <Button type="submit">{title}</Button>
         </form>
     );
 };
