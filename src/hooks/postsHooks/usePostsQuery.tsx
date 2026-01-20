@@ -8,7 +8,7 @@ import { getErrorMessage } from '../../helpers/ErrorHelper.ts';
 import { useNotification } from '../useNotification.tsx';
 import { postsKeys } from './posts.keys.ts';
 
-export const usePostsQuery = (params: PostsQueryParams) => {
+export const usePostsQuery = (params: PostsQueryParams & { id?: string }) => {
     const { notify } = useNotification();
     const errorNotifiedRef = useRef(false);
 

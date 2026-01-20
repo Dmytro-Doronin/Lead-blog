@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import type { ExtendedLikesInfoType } from '../card/types.ts';
 
 import { type LikeStatus, nextStatus } from '../../helpers/nextStatus.ts';
@@ -24,11 +26,13 @@ export const LikeDislike = ({ extendedLikesInfo, isAuth, postId }: LikeDislikePr
     const likeBtnClass = current === 'Like' ? styles.liked : '';
     const dislikeBtnClass = current === 'Dislike' ? styles.disliked : '';
 
-    const onLike = () => {
+    const onLike = (e: React.MouseEvent) => {
+        e.stopPropagation();
         mutate({ postId, next: nextStatus(current, 'Like') });
     };
 
-    const onDislike = () => {
+    const onDislike = (e: React.MouseEvent) => {
+        e.stopPropagation();
         mutate({ postId, next: nextStatus(current, 'Dislike') });
     };
 

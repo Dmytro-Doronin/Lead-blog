@@ -52,6 +52,8 @@ export const BlogsPage = () => {
                     currentUserId={user?.userId}
                     onDeleteItem={onDeleteBlog}
                     placeholdersCount={placeholdersCount}
+                    isAuth={isAuth}
+                    getTo={(item) => `/blogs/${item.id}/posts`}
                 />
             ) : (
                 <div>No blogs</div>

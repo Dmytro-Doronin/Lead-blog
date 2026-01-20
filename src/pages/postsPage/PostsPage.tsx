@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { CardList } from '../../components/cardList/CardList.tsx';
 import { PageHeader } from '../../components/pageHeader/PageHeader.tsx';
@@ -12,12 +13,15 @@ import { selectOptions, type SortDirection } from '../../mockData/options.ts';
 import styles from '../blogsPage/blogPage.module.scss';
 
 export const PostsPage = () => {
+    const { id } = useParams<{ id: string }>();
     const { isAuth, user } = useAuth();
+
     const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePostsQuery({
         pageSize: 6,
         sortBy: 'createdAt',
         sortDirection: sortDirection,
+        id,
     });
 
     const { mutate, isPending } = useDeletePostMutation();
@@ -56,6 +60,7 @@ export const PostsPage = () => {
                     onDeleteItem={onDeletePost}
                     placeholdersCount={placeholdersCount}
                     isAuth={isAuth}
+                    getTo={(item) => `/posts/${item.id}`}
                 />
             ) : (
                 <div>No posts</div>

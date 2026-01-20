@@ -4,8 +4,12 @@ import type { PostFinalType, PostsQueryParams, PostType } from './postsTypes.ts'
 
 import { apiProtected } from '../api.ts';
 
-export const fetchPosts = async (params: PostsQueryParams): Promise<PostFinalType> => {
-    const { data } = await apiProtected.get<PostFinalType>('/posts', {
+export const fetchPosts = async (
+    params: PostsQueryParams & { id?: string },
+): Promise<PostFinalType> => {
+    const url = params.id ? `/blogs/${params.id}/posts` : '/posts';
+    console.log('fetchPosts blogId=', params.id, 'url=', url);
+    const { data } = await apiProtected.get<PostFinalType>(url, {
         params: {
             sortBy: params.sortBy ?? 'createdAt',
             sortDirection: params.sortDirection ?? 'desc',
@@ -13,6 +17,7 @@ export const fetchPosts = async (params: PostsQueryParams): Promise<PostFinalTyp
             pageSize: params.pageSize ?? 10,
         },
     });
+
     return data;
 };
 

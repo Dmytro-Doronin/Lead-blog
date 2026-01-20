@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import type { CardItem } from './types.ts';
 
@@ -13,13 +15,33 @@ type CardProps = {
     currentUserId?: string;
     onDeleteItem?: (id: string) => void;
     isAuth: boolean;
+    to: string;
 };
 
-export const Card = ({ item, currentUserId, onDeleteItem, isAuth }: CardProps) => {
+export const Card = ({ item, currentUserId, onDeleteItem, isAuth, to }: CardProps) => {
     const [loaded, setLoaded] = useState(false);
     const hasImage = !!item.imageUrl;
     const imgRef = useRef<HTMLImageElement | null>(null);
     const isCurrentUser = currentUserId === item.userId;
+
+    const navigate = useNavigate();
+
+    const stop = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const onCardClick = () => {
+        navigate(to);
+    };
+
+    const onCardKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            navigate(to);
+        }
+    };
+
     useEffect(() => {
         setLoaded(!hasImage);
     }, [hasImage, item.imageUrl]);
@@ -40,7 +62,7 @@ export const Card = ({ item, currentUserId, onDeleteItem, isAuth }: CardProps) =
     }, [hasImage, item.imageUrl]);
     const showSkeleton = hasImage && !loaded;
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={onCardClick} onKeyDown={onCardKeyDown}>
             <div className={styles.imageWrapper}>
                 {showSkeleton && <div className={styles.imageSkeleton} />}
                 {item.imageUrl ? (
@@ -62,7 +84,11 @@ export const Card = ({ item, currentUserId, onDeleteItem, isAuth }: CardProps) =
                         <Typography variant="body2" className={styles.name}>
                             {item.title}
                         </Typography>
-                        {isCurrentUser && <ControlPanel id={item.id} onDelete={onDeleteItem} />}
+                        {isCurrentUser && (
+                            <div onClick={stop}>
+                                <ControlPanel id={item.id} onDelete={onDeleteItem} />
+                            </div>
+                        )}
                     </div>
 
                     <Typography variant="body1" className={styles.description}>
@@ -79,11 +105,13 @@ export const Card = ({ item, currentUserId, onDeleteItem, isAuth }: CardProps) =
                     </div>
 
                     {item.extendedLikesInfo && (
-                        <LikeDislike
-                            extendedLikesInfo={item.extendedLikesInfo}
-                            isAuth={isAuth}
-                            postId={item.id}
-                        />
+                        <div onClick={stop}>
+                            <LikeDislike
+                                extendedLikesInfo={item.extendedLikesInfo}
+                                isAuth={isAuth}
+                                postId={item.id}
+                            />
+                        </div>
                     )}
                 </div>
             </div>

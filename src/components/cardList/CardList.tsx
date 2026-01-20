@@ -10,6 +10,7 @@ type CardListProps = {
     onDeleteItem?: (id: string) => void;
     placeholdersCount: number;
     isAuth: boolean;
+    getTo: (item: CardItem) => string;
 };
 
 export const CardList = ({
@@ -18,11 +19,13 @@ export const CardList = ({
     onDeleteItem,
     placeholdersCount,
     isAuth,
+    getTo,
 }: CardListProps) => {
     return (
         <div className={styles.carfList}>
             {items.map((item) => (
                 <Card
+                    to={getTo(item)}
                     key={item.id}
                     item={item}
                     currentUserId={currentUserId}

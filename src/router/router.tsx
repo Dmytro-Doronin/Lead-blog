@@ -35,6 +35,7 @@ export const router = createBrowserRouter([
                     { index: true, element: <Navigate to="/blogs" replace /> },
                     { path: '/blogs', element: <BlogsPage /> },
                     { path: '/posts', element: <PostsPage /> },
+                    { path: '/blogs/:id/posts', element: <PostsPage /> },
                     {
                         element: <RequireAuth />,
                         children: [
