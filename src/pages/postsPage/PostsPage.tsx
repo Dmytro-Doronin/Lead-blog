@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { CardList } from '../../components/cardList/CardList.tsx';
 import { PageHeader } from '../../components/pageHeader/PageHeader.tsx';
 import { CardSkeletonsList } from '../../components/skeletons/cardSkeletonsList/CardSkeletonsList.tsx';
@@ -6,15 +8,17 @@ import { postToCardItem } from '../../helpers/typesHelper.ts';
 import { useDeletePostMutation } from '../../hooks/postsHooks/useDeletePostMutation.tsx';
 import { usePostsQuery } from '../../hooks/postsHooks/usePostsQuery.tsx';
 import { useAuth } from '../../hooks/useAuthContext.tsx';
+import { selectOptions, type SortDirection } from '../../mockData/options.ts';
 import styles from '../blogsPage/blogPage.module.scss';
 
 export const PostsPage = () => {
     const { isAuth, user } = useAuth();
+    const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
         usePostsQuery({
             pageSize: 6,
             sortBy: 'createdAt',
-            sortDirection: 'desc',
+            sortDirection: sortDirection,
         });
 
     const { mutate, isPending } = useDeletePostMutation();
@@ -23,13 +27,27 @@ export const PostsPage = () => {
         mutate({ id });
     };
 
+    const onSelectChange = (option: SortDirection) => {
+        setSortDirection(option);
+    };
+
     const items = data?.pages.flatMap((page) => page.items) ?? [];
     const showSkeletonForList = isLoading || (isFetching && !isFetchingNextPage);
     const placeholdersCount = isPending || isFetching ? 1 : 0;
 
     return (
         <div className={styles.page}>
-            <PageHeader title="All blogs" isAuth={isAuth} shortTitle="post" link="/posts/create" />
+            <PageHeader
+                title="All posts"
+                isAuth={isAuth}
+                shortTitle="post"
+                link="/posts/create"
+                select={{
+                    onChange: onSelectChange,
+                    defaultValue: sortDirection,
+                    options: selectOptions,
+                }}
+            />
             {showSkeletonForList ? (
                 <CardSkeletonsList />
             ) : items.length ? (
