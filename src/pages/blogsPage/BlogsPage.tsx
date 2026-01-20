@@ -37,7 +37,13 @@ export const BlogsPage = () => {
     const placeholdersCount = isPending || isFetching ? 1 : 0;
     return (
         <div className={styles.page}>
-            <PageHeader title="All blogs" searchCallback={onSetTerm} isAuth={isAuth} />
+            <PageHeader
+                title="All blogs"
+                searchCallback={onSetTerm}
+                isAuth={isAuth}
+                shortTitle="blog"
+                link="/blogs/create"
+            />
             {showSkeletonForList ? (
                 <CardSkeletonsList />
             ) : items.length ? (

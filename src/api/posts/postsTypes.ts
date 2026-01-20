@@ -1,6 +1,6 @@
 import type { SortDirection } from '../blogs/blogsTypes.ts';
 
-type newestLikes = {
+export type newestLikes = {
     addedAt: string;
     userId: string;
     login: string;

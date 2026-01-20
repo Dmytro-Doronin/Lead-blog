@@ -29,7 +29,7 @@ export const PostsPage = () => {
 
     return (
         <div className={styles.page}>
-            <PageHeader title="All blogs" isAuth={isAuth} />
+            <PageHeader title="All blogs" isAuth={isAuth} shortTitle="post" link="/posts/create" />
             {showSkeletonForList ? (
                 <CardSkeletonsList />
             ) : items.length ? (

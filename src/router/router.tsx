@@ -7,6 +7,7 @@ import { AuthLayout } from '../layout/authLayout/AuthLayout.tsx';
 import { RootLayout } from '../layout/rootLayout/RootLayout.tsx';
 import { BlogsPage } from '../pages/blogsPage/BlogsPage.tsx';
 import { CreateBlogPage } from '../pages/createBlogPage/CreateBlogPage.tsx';
+import { CreatePostPage } from '../pages/createPostPage/CreatePostPage.tsx';
 import { EditBlogPage } from '../pages/editBlogPage/EditBlogPage.tsx';
 import { LoginPage } from '../pages/loginPage/LoginPage.tsx';
 import { PostsPage } from '../pages/postsPage/PostsPage.tsx';
@@ -39,6 +40,7 @@ export const router = createBrowserRouter([
                         children: [
                             { path: '/blogs/create', element: <CreateBlogPage /> },
                             { path: '/blogs/edit/:id', element: <EditBlogPage /> },
+                            { path: '/posts/create', element: <CreatePostPage /> },
                         ],
                     },
                 ],

@@ -8,11 +8,19 @@ import styles from './pageHeader.module.scss';
 
 type PageHeaderProps = {
     title: string;
+    shortTitle: string;
+    link: string;
     searchCallback?: (term: string) => void;
     isAuth?: boolean;
 };
 
-export const PageHeader = ({ title, searchCallback, isAuth }: PageHeaderProps) => {
+export const PageHeader = ({
+    title,
+    searchCallback,
+    isAuth,
+    shortTitle,
+    link,
+}: PageHeaderProps) => {
     return (
         <div className={styles.pageHeader}>
             <Typography className={styles.title} variant="h1">
@@ -28,8 +36,8 @@ export const PageHeader = ({ title, searchCallback, isAuth }: PageHeaderProps) =
                     />
                 )}
                 {isAuth && (
-                    <Button as={NavLink} to="/blogs/create">
-                        Add new {title}
+                    <Button as={NavLink} to={link}>
+                        Add new {shortTitle}
                     </Button>
                 )}
             </div>
