@@ -55,7 +55,9 @@ export const useDeleteInfiniteItemMutation = <TPage extends PageWithItems>({
             qc.removeQueries({ queryKey: keys.byId(id), exact: true });
 
             qc.setQueriesData<InfiniteData<TPage, number>>({ queryKey: keys.listRoot }, (old) => {
-                if (!old) return old;
+                if (!old) {
+                    return old;
+                }
 
                 return {
                     ...old,

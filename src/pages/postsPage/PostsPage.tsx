@@ -14,12 +14,11 @@ import styles from '../blogsPage/blogPage.module.scss';
 export const PostsPage = () => {
     const { isAuth, user } = useAuth();
     const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
-    const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-        usePostsQuery({
-            pageSize: 6,
-            sortBy: 'createdAt',
-            sortDirection: sortDirection,
-        });
+    const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePostsQuery({
+        pageSize: 6,
+        sortBy: 'createdAt',
+        sortDirection: sortDirection,
+    });
 
     const { mutate, isPending } = useDeletePostMutation();
 
@@ -32,8 +31,8 @@ export const PostsPage = () => {
     };
 
     const items = data?.pages.flatMap((page) => page.items) ?? [];
-    const showSkeletonForList = isLoading || (isFetching && !isFetchingNextPage);
-    const placeholdersCount = isPending || isFetching ? 1 : 0;
+    const showSkeletonForList = isLoading;
+    const placeholdersCount = isPending || isLoading ? 1 : 0;
 
     return (
         <div className={styles.page}>

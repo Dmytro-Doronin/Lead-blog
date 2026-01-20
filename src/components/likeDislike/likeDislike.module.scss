@@ -1,0 +1,29 @@
+@use '../../styles/helpers' as *;
+
+.likesCount {
+    color: inherit;
+}
+
+.extendedBlock {
+    display: flex;
+    align-items: center;
+    gap: rem(20);
+    transition: all 0.3s ease-in-out;
+}
+
+.extendedItem {
+    display: flex;
+    gap: rem(10);
+}
+
+.disabled {
+    color: var(--colog-gray);
+}
+
+.liked {
+    color: var(--color-danger);
+}
+
+.disliked {
+    color: var(--color-main);
+}

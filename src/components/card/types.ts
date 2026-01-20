@@ -1,6 +1,6 @@
 import type { newestLikes } from '../../api/posts/postsTypes.ts';
 
-type ExtendedLikesInfoType = {
+export type ExtendedLikesInfoType = {
     likesCount: number;
     dislikesCount: number;
     myStatus: 'Like' | 'Dislike' | 'None';

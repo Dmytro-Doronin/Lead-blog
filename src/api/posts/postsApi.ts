@@ -1,10 +1,11 @@
+import type { LikeStatus } from '../../helpers/nextStatus.ts';
 import type { BlogType } from '../blogs/blogsTypes.ts';
-import type { PostFinalType, PostsQueryParams } from './postsTypes.ts';
+import type { PostFinalType, PostsQueryParams, PostType } from './postsTypes.ts';
 
-import { apiProtected, apiPublic } from '../api.ts';
+import { apiProtected } from '../api.ts';
 
 export const fetchPosts = async (params: PostsQueryParams): Promise<PostFinalType> => {
-    const { data } = await apiPublic.get<PostFinalType>('/posts', {
+    const { data } = await apiProtected.get<PostFinalType>('/posts', {
         params: {
             sortBy: params.sortBy ?? 'createdAt',
             sortDirection: params.sortDirection ?? 'desc',
@@ -17,4 +18,11 @@ export const fetchPosts = async (params: PostsQueryParams): Promise<PostFinalTyp
 
 export const deletePost = async ({ id }: { id: string }) => {
     await apiProtected.delete<BlogType>(`/posts/${id}`);
+};
+
+export const setPostLikeStatus = async (id: string, likeStatus: LikeStatus) => {
+    const { data } = await apiProtected.put<PostType>(`/posts/${id}/like-status`, {
+        likeStatus,
+    });
+    return data;
 };

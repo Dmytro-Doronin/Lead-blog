@@ -18,23 +18,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
     const isAuth = !!user;
 
-    const fetchMe = useCallback(
-        async (silent = false) => {
-            try {
-                const user = await Me();
-                setUser(user);
-            } catch (err) {
-                setUser(null);
-                if (!silent) {
-                    const msg = getErrorMessage(err);
-                    notify({ variant: 'error', message: msg || 'Unknown error' });
-                }
-            } finally {
-                setIsLoading(false);
+    const fetchMe = useCallback(async (silent = false) => {
+        try {
+            const user = await Me();
+            setUser(user);
+        } catch (err) {
+            setUser(null);
+            if (!silent) {
+                const msg = getErrorMessage(err);
+                notify({ variant: 'error', message: msg || 'Unknown error' });
             }
-        },
-        [notify],
-    );
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
 
     const login = async (data: LoginType) => {
         setIsLocalLoading(true);

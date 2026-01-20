@@ -4,9 +4,7 @@ import type { CardItem } from './types.ts';
 
 import { formatDate } from '../../helpers/dataHelper.ts';
 import { ControlPanel } from '../controlPanel/ControlPanel.tsx';
-import Dislike from '../icons/Dislike.tsx';
-import Like from '../icons/Like.tsx';
-import { Button } from '../ui/button/Button.tsx';
+import { LikeDislike } from '../likeDislike/LikeDislike.tsx';
 import { Typography } from '../ui/typography/Typography.tsx';
 import styles from './card.module.scss';
 
@@ -81,28 +79,11 @@ export const Card = ({ item, currentUserId, onDeleteItem, isAuth }: CardProps) =
                     </div>
 
                     {item.extendedLikesInfo && (
-                        <div className={styles.extendedBlock}>
-                            <div className={styles.extendedItem}>
-                                <Button variant="transparent" disabled={!isAuth}>
-                                    <Like />
-                                </Button>
-                                <span
-                                    className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}
-                                >
-                                    {item.extendedLikesInfo.likesCount}
-                                </span>
-                            </div>
-                            <div className={styles.extendedItem}>
-                                <Button variant="transparent" disabled={!isAuth}>
-                                    <Dislike />
-                                </Button>
-                                <span
-                                    className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}
-                                >
-                                    {item.extendedLikesInfo.dislikesCount}
-                                </span>
-                            </div>
-                        </div>
+                        <LikeDislike
+                            extendedLikesInfo={item.extendedLikesInfo}
+                            isAuth={isAuth}
+                            postId={item.id}
+                        />
                     )}
                 </div>
             </div>
