@@ -19,6 +19,12 @@
     gap: rem(4);
     text-align: center;
     overflow: hidden;
+
+    &:disabled {
+        cursor: default;
+        opacity: 0.5;
+        color: var(--colog-gray);
+    }
 }
 
 .fullWidth {

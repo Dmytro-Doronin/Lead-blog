@@ -9,6 +9,7 @@ type CardListProps = {
     currentUserId?: string;
     onDeleteItem?: (id: string) => void;
     placeholdersCount: number;
+    isAuth: boolean;
 };
 
 export const CardList = ({
@@ -16,6 +17,7 @@ export const CardList = ({
     currentUserId,
     onDeleteItem,
     placeholdersCount,
+    isAuth,
 }: CardListProps) => {
     return (
         <div className={styles.carfList}>
@@ -25,6 +27,7 @@ export const CardList = ({
                     item={item}
                     currentUserId={currentUserId}
                     onDeleteItem={onDeleteItem}
+                    isAuth={isAuth}
                 ></Card>
             ))}
             {Array.from({ length: placeholdersCount }).map((_, idx) => (

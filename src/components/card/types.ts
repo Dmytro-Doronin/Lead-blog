@@ -1,5 +1,12 @@
 import type { newestLikes } from '../../api/posts/postsTypes.ts';
 
+type ExtendedLikesInfoType = {
+    likesCount: number;
+    dislikesCount: number;
+    myStatus: 'Like' | 'Dislike' | 'None';
+    newestLikes: newestLikes[];
+};
+
 export type CardItem = {
     id: string;
     title: string;
@@ -8,10 +15,5 @@ export type CardItem = {
     userId: string;
     userName: string;
     imageUrl?: string;
-    extendedLikesInfo: {
-        likesCount: number | null;
-        dislikesCount: number | null;
-        myStatus: 'Like' | 'Dislike' | 'None' | null;
-        newestLikes: newestLikes[] | null;
-    };
+    extendedLikesInfo: ExtendedLikesInfoType | null;
 };

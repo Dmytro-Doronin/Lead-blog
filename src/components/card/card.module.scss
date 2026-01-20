@@ -90,3 +90,39 @@
 .userName {
     color: var(--color-light-500);
 }
+
+.cardFooter {
+    display: flex;
+    align-items: end;
+    gap: rem(10);
+}
+
+.cardFooterHeader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.likesCount {
+    color: inherit;
+}
+
+.author {
+    color: var(--color-light-100);
+}
+
+.extendedBlock {
+    display: flex;
+    align-items: center;
+    gap: rem(20);
+}
+
+.extendedItem {
+    display: flex;
+    gap: rem(10);
+}
+
+.disabled {
+    color: var(--colog-gray);
+}

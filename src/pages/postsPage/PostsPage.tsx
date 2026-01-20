@@ -56,6 +56,7 @@ export const PostsPage = () => {
                     currentUserId={user?.userId}
                     onDeleteItem={onDeletePost}
                     placeholdersCount={placeholdersCount}
+                    isAuth={isAuth}
                 />
             ) : (
                 <div>No posts</div>

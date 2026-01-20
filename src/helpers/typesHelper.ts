@@ -10,12 +10,7 @@ export const blogToCardItem = (blog: BlogType): CardItem => ({
     userId: blog.userId,
     userName: blog.userName,
     imageUrl: blog.imageUrl,
-    extendedLikesInfo: {
-        likesCount: null,
-        dislikesCount: null,
-        myStatus: null,
-        newestLikes: null,
-    },
+    extendedLikesInfo: null,
 });
 
 export const postToCardItem = (post: PostType): CardItem => ({

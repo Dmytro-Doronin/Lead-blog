@@ -4,6 +4,9 @@ import type { CardItem } from './types.ts';
 
 import { formatDate } from '../../helpers/dataHelper.ts';
 import { ControlPanel } from '../controlPanel/ControlPanel.tsx';
+import Dislike from '../icons/Dislike.tsx';
+import Like from '../icons/Like.tsx';
+import { Button } from '../ui/button/Button.tsx';
 import { Typography } from '../ui/typography/Typography.tsx';
 import styles from './card.module.scss';
 
@@ -11,9 +14,10 @@ type CardProps = {
     item: CardItem;
     currentUserId?: string;
     onDeleteItem?: (id: string) => void;
+    isAuth: boolean;
 };
 
-export const Card = ({ item, currentUserId, onDeleteItem }: CardProps) => {
+export const Card = ({ item, currentUserId, onDeleteItem, isAuth }: CardProps) => {
     const [loaded, setLoaded] = useState(false);
     const hasImage = !!item.imageUrl;
     const imgRef = useRef<HTMLImageElement | null>(null);
@@ -69,8 +73,37 @@ export const Card = ({ item, currentUserId, onDeleteItem }: CardProps) => {
                 </div>
 
                 <div className={styles.cardFooter}>
-                    Created <span>{formatDate(item.createdAt)} </span>
-                    by <span className={styles.userName}>{item.userName}</span>
+                    <div className={styles.cardFooterHeader}>
+                        <span>Created: {formatDate(item.createdAt)} </span>
+                        <span className={styles.userName}>
+                            <span className={styles.author}>Author:</span> {item.userName}
+                        </span>
+                    </div>
+
+                    {item.extendedLikesInfo && (
+                        <div className={styles.extendedBlock}>
+                            <div className={styles.extendedItem}>
+                                <Button variant="transparent" disabled={!isAuth}>
+                                    <Like />
+                                </Button>
+                                <span
+                                    className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}
+                                >
+                                    {item.extendedLikesInfo.likesCount}
+                                </span>
+                            </div>
+                            <div className={styles.extendedItem}>
+                                <Button variant="transparent" disabled={!isAuth}>
+                                    <Dislike />
+                                </Button>
+                                <span
+                                    className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}
+                                >
+                                    {item.extendedLikesInfo.dislikesCount}
+                                </span>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
