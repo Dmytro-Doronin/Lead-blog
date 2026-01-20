@@ -1,4 +1,5 @@
-/* reset */
+@use '../../../styles/helpers' as *;
+
 button {
     all: unset;
 }
@@ -6,32 +7,30 @@ button {
 .SelectTrigger {
     display: flex;
     justify-content: space-between;
-    padding: 5px 10px;
-    border: 1px solid var(--color-light-400);
+    padding: rem(5) rem(6);
+    border: rem(1) solid var(--color-light-400);
     cursor: pointer;
 }
 
-.simple {
-}
-
 .pagination {
-    max-width: 210px;
+    width: rem(210);
     background-color: var(--color-dark-500);
 }
 
 .si .SelectTrigger:hover {
-    background-color: var(--color-accent-900);
+    background-color: var(--color-light-100);
 }
 .SelectTrigger:focus {
-    outline: 1px silid var(--color-info-700);
+    outline: 1px solid;
+    color: var(--color-light-100);
     box-shadow: 0 0 0 2px black;
 }
 .SelectTrigger[data-placeholder] {
-    color: white;
+    color: var(--color-light-100);
 }
 
 .SelectIcon {
-    color: #fff;
+    color: var(--color-light-100);
 }
 
 .SelectContent {
@@ -46,22 +45,18 @@ button {
 }
 
 .SelectItem {
-    padding: 5px 10px;
+    padding: rem(5) rem(10);
     display: flex;
     justify-content: space-between;
     width: auto;
     cursor: pointer;
     background-color: var(--color-dark-500);
     &:hover {
-        background-color: var(--color-accent-900);
+        background-color: var(--color-light-700);
     }
     &:hover .selectTypography {
-        color: var(--color-accent-300);
+        color: var(--color-light-100);
     }
-
-    //&:hover .selectIcon {
-    //  color: var( --color-accent-300);
-    //}
 }
 
 .SelectItem[data-disabled] {
@@ -71,21 +66,21 @@ button {
 }
 
 .SelectLabel {
-    padding: 0 25px;
-    font-size: 12px;
-    line-height: 25px;
+    padding: 0 rem(25);
+    font-size: rem(12);
+    line-height: rem(25);
 }
 
 .SelectSeparator {
-    height: 1px;
+    height: rem(1);
 
-    margin: 5px;
+    margin: rem(5);
 }
 
 .SelectItemIndicator {
     position: absolute;
     left: 0;
-    width: 25px;
+    width: rem(25);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -95,7 +90,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 25px;
+    height: rem(25);
     background-color: white;
     cursor: pointer;
 }

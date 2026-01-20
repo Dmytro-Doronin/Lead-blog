@@ -6,6 +6,11 @@
     width: rem(350);
     border-radius: rem(10);
     overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        box-shadow: var(--color-light-700) 0 3px 8px;
+    }
 }
 
 .imageWrapper {
