@@ -15,7 +15,7 @@ import styles from '../blogsPage/blogPage.module.scss';
 export const PostsPage = () => {
     const { id } = useParams<{ id: string }>();
     const { isAuth, user } = useAuth();
-
+    const isBlogContext = Boolean(id);
     const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePostsQuery({
         pageSize: 6,
@@ -41,10 +41,12 @@ export const PostsPage = () => {
     return (
         <div className={styles.page}>
             <PageHeader
-                title="All posts"
-                isAuth={isAuth}
-                shortTitle="post"
-                link="/posts/create"
+                title="Posts"
+                action={
+                    isAuth && isBlogContext
+                        ? { label: 'Add new post', to: `/blogs/${id}/posts/create` }
+                        : undefined
+                }
                 select={{
                     onChange: onSelectChange,
                     defaultValue: sortDirection,

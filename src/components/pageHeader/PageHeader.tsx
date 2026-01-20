@@ -9,10 +9,14 @@ import styles from './pageHeader.module.scss';
 
 type BaseProps = {
     title: string;
-    shortTitle: string;
-    link: string;
     searchCallback?: (term: string) => void;
-    isAuth?: boolean;
+};
+
+type ActionProps = {
+    action?: {
+        label: string;
+        to: string;
+    };
 };
 
 export type SelectHeaderProps<TValue extends string = string> = Omit<
@@ -21,11 +25,11 @@ export type SelectHeaderProps<TValue extends string = string> = Omit<
 >;
 
 type PageHeaderProps<TValue extends string = string> =
-    | (BaseProps & { select: SelectHeaderProps<TValue> })
-    | (BaseProps & { select?: undefined });
+    | (BaseProps & ActionProps & { select: SelectHeaderProps<TValue> })
+    | (BaseProps & ActionProps & { select?: undefined });
 
 export const PageHeader = <TValue extends string = string>(props: PageHeaderProps<TValue>) => {
-    const { title, searchCallback, isAuth, shortTitle, link } = props;
+    const { title, searchCallback, action } = props;
 
     return (
         <div className={styles.pageHeader}>
@@ -41,9 +45,9 @@ export const PageHeader = <TValue extends string = string>(props: PageHeaderProp
                         Icon={SearchIcon}
                     />
                 )}
-                {isAuth && shortTitle === 'blog' && (
-                    <Button as={NavLink} to={link}>
-                        Add new {shortTitle}
+                {action && (
+                    <Button as={NavLink} to={action.to}>
+                        {action.label}
                     </Button>
                 )}
                 {props.select && (

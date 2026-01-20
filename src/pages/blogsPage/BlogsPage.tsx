@@ -40,9 +40,7 @@ export const BlogsPage = () => {
             <PageHeader
                 title="All blogs"
                 searchCallback={onSetTerm}
-                isAuth={isAuth}
-                shortTitle="blog"
-                link="/blogs/create"
+                action={isAuth ? { label: 'Add new blog', to: '/blogs/create' } : undefined}
             />
             {showSkeletonForList ? (
                 <CardSkeletonsList />

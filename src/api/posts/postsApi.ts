@@ -8,7 +8,6 @@ export const fetchPosts = async (
     params: PostsQueryParams & { id?: string },
 ): Promise<PostFinalType> => {
     const url = params.id ? `/blogs/${params.id}/posts` : '/posts';
-    console.log('fetchPosts blogId=', params.id, 'url=', url);
     const { data } = await apiProtected.get<PostFinalType>(url, {
         params: {
             sortBy: params.sortBy ?? 'createdAt',
