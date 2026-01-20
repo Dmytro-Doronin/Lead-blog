@@ -1,11 +1,11 @@
-import type { BlogType } from '../../api/blogs/blogsTypes.ts';
+import type { CardItem } from '../card/types.ts';
 
 import { Card } from '../card/Card.tsx';
 import { CardSkeleton } from '../skeletons/cardSkeleton/CardSkeleton.tsx';
 import styles from './cardList.module.scss';
 
 type CardListProps = {
-    items: BlogType[];
+    items: CardItem[];
     currentUserId?: string;
     onDeleteItem?: (id: string) => void;
     placeholdersCount: number;

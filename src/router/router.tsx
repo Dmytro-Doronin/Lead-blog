@@ -9,7 +9,7 @@ import { BlogsPage } from '../pages/blogsPage/BlogsPage.tsx';
 import { CreateBlogPage } from '../pages/createBlogPage/CreateBlogPage.tsx';
 import { EditBlogPage } from '../pages/editBlogPage/EditBlogPage.tsx';
 import { LoginPage } from '../pages/loginPage/LoginPage.tsx';
-import { PostsPage } from '../pages/posts/PostsPage.tsx';
+import { PostsPage } from '../pages/postsPage/PostsPage.tsx';
 import { RegisterPage } from '../pages/registerPage/RegisterPage.tsx';
 
 export const router = createBrowserRouter([
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
             //     children: [
             //         { index: true, element: <Navigate to="blogs" replace /> },
             //         { path: 'blogs', element: <BlogsPage /> },
-            //         { path: 'posts', element: <PostsPage /> },
+            //         { path: 'postsPage', element: <PostsPage /> },
             //     ],
             // },
         ],

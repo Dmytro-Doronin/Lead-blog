@@ -1,54 +1,46 @@
-import { useState } from 'react';
-
 import { CardList } from '../../components/cardList/CardList.tsx';
 import { PageHeader } from '../../components/pageHeader/PageHeader.tsx';
 import { CardSkeletonsList } from '../../components/skeletons/cardSkeletonsList/CardSkeletonsList.tsx';
 import { Button } from '../../components/ui/button/Button.tsx';
-import { blogToCardItem } from '../../helpers/typesHelper.ts';
-import { useBlogQuery } from '../../hooks/blogsHooks/useBlogQuery.tsx';
-import { useDeleteBlogMutation } from '../../hooks/blogsHooks/useDeleteBlogMutation.tsx';
+import { postToCardItem } from '../../helpers/typesHelper.ts';
+import { useDeletePostMutation } from '../../hooks/postsHooks/useDeletePostMutation.tsx';
+import { usePostsQuery } from '../../hooks/postsHooks/usePostsQuery.tsx';
 import { useAuth } from '../../hooks/useAuthContext.tsx';
-import { useDebounce } from '../../hooks/useDebaunce.tsx';
-import styles from './blogPage.module.scss';
+import styles from '../blogsPage/blogPage.module.scss';
 
-export const BlogsPage = () => {
-    const [term, setTerm] = useState<string>('');
-    const debouncedTerm = useDebounce(term, 400);
+export const PostsPage = () => {
     const { isAuth, user } = useAuth();
     const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-        useBlogQuery({
+        usePostsQuery({
             pageSize: 6,
             sortBy: 'createdAt',
             sortDirection: 'desc',
-            searchNameTerm: debouncedTerm,
         });
 
-    const { mutate, isPending } = useDeleteBlogMutation();
+    const { mutate, isPending } = useDeletePostMutation();
 
-    const onSetTerm = (term: string) => {
-        setTerm(term);
-    };
-
-    const onDeleteBlog = (id: string) => {
+    const onDeletePost = (id: string) => {
         mutate({ id });
     };
+
     const items = data?.pages.flatMap((page) => page.items) ?? [];
     const showSkeletonForList = isLoading || (isFetching && !isFetchingNextPage);
     const placeholdersCount = isPending || isFetching ? 1 : 0;
+
     return (
         <div className={styles.page}>
-            <PageHeader title="All blogs" searchCallback={onSetTerm} isAuth={isAuth} />
+            <PageHeader title="All blogs" isAuth={isAuth} />
             {showSkeletonForList ? (
                 <CardSkeletonsList />
             ) : items.length ? (
                 <CardList
-                    items={items.map(blogToCardItem)}
+                    items={items.map(postToCardItem)}
                     currentUserId={user?.userId}
-                    onDeleteItem={onDeleteBlog}
+                    onDeleteItem={onDeletePost}
                     placeholdersCount={placeholdersCount}
                 />
             ) : (
-                <div>No blogs</div>
+                <div>No posts</div>
             )}
 
             {hasNextPage && (

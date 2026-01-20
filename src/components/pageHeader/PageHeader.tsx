@@ -29,7 +29,7 @@ export const PageHeader = ({ title, searchCallback, isAuth }: PageHeaderProps) =
                 )}
                 {isAuth && (
                     <Button as={NavLink} to="/blogs/create">
-                        Add new blog
+                        Add new {title}
                     </Button>
                 )}
             </div>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import type { BlogType } from '../../api/blogs/blogsTypes.ts';
+import type { CardItem } from './types.ts';
 
 import { formatDate } from '../../helpers/dataHelper.ts';
 import { ControlPanel } from '../controlPanel/ControlPanel.tsx';
@@ -8,7 +8,7 @@ import { Typography } from '../ui/typography/Typography.tsx';
 import styles from './card.module.scss';
 
 type CardProps = {
-    item: BlogType;
+    item: CardItem;
     currentUserId?: string;
     onDeleteItem?: (id: string) => void;
 };
@@ -44,7 +44,7 @@ export const Card = ({ item, currentUserId, onDeleteItem }: CardProps) => {
                 {item.imageUrl ? (
                     <img
                         src={item.imageUrl}
-                        alt={item.name}
+                        alt={item.title}
                         className={`${styles.image} ${loaded ? styles.imageLoaded : ''}`}
                         onLoad={() => setLoaded(true)}
                         onError={() => setLoaded(true)}
@@ -58,7 +58,7 @@ export const Card = ({ item, currentUserId, onDeleteItem }: CardProps) => {
                 <div className={styles.titles}>
                     <div className={styles.header}>
                         <Typography variant="body2" className={styles.name}>
-                            {item.name}
+                            {item.title}
                         </Typography>
                         {isCurrentUser && <ControlPanel id={item.id} onDelete={onDeleteItem} />}
                     </div>
