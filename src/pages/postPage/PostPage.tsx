@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 
+import NoImage from '../../assets/Image-not-found.png';
 import { CommentsSection } from '../../components/comments/commentsSection/CommentsSection.tsx';
 import { LikeDislike } from '../../components/likeDislike/LikeDislike.tsx';
 import { Loader } from '../../components/loader/Loader.tsx';
@@ -29,7 +30,7 @@ export const PostPage = () => {
             <div className="container">
                 <div className={styles.postPageInner}>
                     <div className={styles.imageWrapper}>
-                        <img src={post.imageUrl} alt={post.title} />
+                        <img src={post.imageUrl || NoImage} alt={post.title} />
                     </div>
                     <div className={styles.pageHeader}>
                         <div className={styles.info}>
@@ -53,7 +54,7 @@ export const PostPage = () => {
                     <hr className={styles.line} />
                     <div className={styles.contentWrapper}>
                         <div className={styles.content}>
-                            <Typography variant="body1">{post.content}</Typography>
+                            <Typography variant="body2">{post.content}</Typography>
                         </div>
                     </div>
                     <hr className={styles.line} />

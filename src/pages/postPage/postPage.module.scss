@@ -29,15 +29,28 @@
     grid-template-columns: 1fr rem(200);
     align-items: end;
     column-gap: rem(80);
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: rem(20);
+    }
 }
 
 .likes {
     display: flex;
     align-items: end;
     justify-content: end;
+    @include mobile {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+    }
 }
 
 .info {
+    width: 100%;
 }
 
 .title {

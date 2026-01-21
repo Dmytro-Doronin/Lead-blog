@@ -5,4 +5,7 @@
     width: 100%;
     flex-wrap: wrap;
     gap: rem(20);
+    @include tablet {
+        justify-content: center;
+    }
 }

@@ -27,6 +27,10 @@
     display: grid;
     grid-template-columns: 1fr rem(200);
     gap: rem(20);
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .info {

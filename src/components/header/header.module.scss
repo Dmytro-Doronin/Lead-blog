@@ -8,7 +8,6 @@
     width: 100%;
     height: var(--header-height);
     background-color: var(--lighter-main);
-    border-bottom: rem(1) solid hsl(var(--color-default-300) / 1);
     opacity: 1;
     z-index: 1000;
 }
@@ -97,8 +96,6 @@
     width: min(#{rem(340)}, 90vw);
 
     background-color: var(--lighter-main);
-    border-left: rem(1) solid hsl(var(--color-default-300) / 1);
-
     transform: translateX(100%);
     transition: var(--transition);
 
@@ -137,7 +134,7 @@
     justify-content: center;
 
     &:hover {
-        background: hsl(var(--color-default-300) / 0.15);
+        background: var(--color-light-300);
     }
 }
 

@@ -14,4 +14,10 @@
     width: rem(800);
     gap: rem(10);
     padding: rem(20) rem(20) rem(15);
+    @include tablet {
+        width: rem(700);
+    }
+    @include mobile {
+        width: rem(400);
+    }
 }

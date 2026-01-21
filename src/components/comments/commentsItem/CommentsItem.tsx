@@ -9,6 +9,7 @@ import Delete from '../../icons/Delete.tsx';
 import Dislike from '../../icons/Dislike.tsx';
 import Like from '../../icons/Like.tsx';
 import { Button } from '../../ui/button/Button.tsx';
+import { Typography } from '../../ui/typography/Typography.tsx';
 import styles from './commentItem.module.scss';
 export const CommentItem = ({
     comment,
@@ -47,7 +48,7 @@ export const CommentItem = ({
                         <b>{comment.commentatorInfo.userLogin}</b> •{' '}
                         <span>{formatDate(comment.createdAt)}</span>
                     </div>
-                    <p>{comment.content}</p>
+                    <Typography variant="body1">{comment.content}</Typography>
                 </div>
                 <div className={styles.footer}>
                     {canManage && (
