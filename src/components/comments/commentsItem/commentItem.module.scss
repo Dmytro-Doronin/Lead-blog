@@ -1,0 +1,60 @@
+@use '../../../styles/helpers' as *;
+
+.commentItem {
+    display: grid;
+    grid-template-columns: rem(50) 1fr;
+    gap: rem(20);
+    width: 100%;
+    background-color: var(--color-secondary);
+    border-radius: rem(20);
+    padding: rem(20);
+}
+
+.imageWrapper {
+    width: rem(40);
+    height: rem(40);
+    border-radius: rem(10);
+    overflow: hidden;
+}
+
+.imageWrapper > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.infoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: rem(5);
+}
+
+.likes {
+    display: flex;
+    gap: rem(20);
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.extendedItem {
+    display: flex;
+    gap: rem(10);
+}
+
+.disabled {
+    color: var(--colog-gray);
+}
+
+.liked {
+    color: var(--color-danger);
+}
+
+.disliked {
+    color: var(--color-secondary);
+}

@@ -11,6 +11,7 @@ import { CreatePostPage } from '../pages/createPostPage/CreatePostPage.tsx';
 import { EditBlogPage } from '../pages/editBlogPage/EditBlogPage.tsx';
 import { EditPostPage } from '../pages/editPostPage/EditPostPage.tsx';
 import { LoginPage } from '../pages/loginPage/LoginPage.tsx';
+import { PostPage } from '../pages/postPage/PostPage.tsx';
 import { PostsPage } from '../pages/postsPage/PostsPage.tsx';
 import { RegisterPage } from '../pages/registerPage/RegisterPage.tsx';
 
@@ -37,6 +38,7 @@ export const router = createBrowserRouter([
                     { path: '/blogs', element: <BlogsPage /> },
                     { path: '/posts', element: <PostsPage /> },
                     { path: '/blogs/:id/posts', element: <PostsPage /> },
+                    { path: '/posts/:id', element: <PostPage /> },
                     {
                         element: <RequireAuth />,
                         children: [

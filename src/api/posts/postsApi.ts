@@ -1,7 +1,7 @@
 import type { LikeStatus } from '../../helpers/nextStatus.ts';
 import type { PostFinalType, PostsQueryParams, PostType } from './postsTypes.ts';
 
-import { apiProtected, apiPublic } from '../api.ts';
+import { apiProtected } from '../api.ts';
 
 export const fetchPosts = async (
     params: PostsQueryParams & { id?: string },
@@ -20,7 +20,7 @@ export const fetchPosts = async (
 };
 
 export const getPost = async (id: string): Promise<PostType> => {
-    const { data } = await apiPublic.get<PostType>(`/posts/${id}`);
+    const { data } = await apiProtected.get<PostType>(`/posts/${id}`);
 
     return data;
 };

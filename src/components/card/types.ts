@@ -1,9 +1,9 @@
 import type { newestLikes } from '../../api/posts/postsTypes.ts';
-
+export type likeStatusType = 'Like' | 'Dislike' | 'None';
 export type ExtendedLikesInfoType = {
     likesCount: number;
     dislikesCount: number;
-    myStatus: 'Like' | 'Dislike' | 'None';
+    myStatus: likeStatusType;
     newestLikes: newestLikes[];
 };
 
