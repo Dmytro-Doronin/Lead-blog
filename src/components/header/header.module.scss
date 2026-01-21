@@ -21,6 +21,11 @@
     width: 100%;
 }
 
+.logoLink {
+    display: inline-flex;
+    align-items: center;
+}
+
 .userBlock {
     display: flex;
     align-items: center;
@@ -30,4 +35,148 @@
 .btnGroup {
     display: flex;
     column-gap: rem(10);
+}
+
+.desktopOnly {
+    display: flex;
+    align-items: center;
+
+    @include tablet {
+        display: none;
+    }
+}
+
+.burger {
+    display: none;
+
+    @include tablet {
+        display: inline-flex;
+    }
+
+    width: rem(40);
+    height: rem(40);
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: rem(6);
+
+    span {
+        width: rem(22);
+        height: rem(2);
+        background: currentColor;
+        border-radius: rem(2);
+        display: block;
+    }
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+    z-index: 1100;
+}
+
+.overlayOpen {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: min(#{rem(340)}, 90vw);
+
+    background-color: var(--lighter-main);
+    border-left: rem(1) solid hsl(var(--color-default-300) / 1);
+
+    transform: translateX(100%);
+    transition: var(--transition);
+
+    z-index: 1200;
+
+    display: flex;
+    flex-direction: column;
+    padding: rem(16);
+}
+
+.drawerOpen {
+    transform: translateX(0);
+}
+
+.drawerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(12);
+}
+
+.drawerLogo {
+    display: inline-flex;
+    align-items: center;
+}
+
+.close {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    width: rem(40);
+    height: rem(40);
+    border-radius: rem(10);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background: hsl(var(--color-default-300) / 0.15);
+    }
+}
+
+.nav {
+    margin-top: rem(16);
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        padding: rem(10) rem(12);
+        border-radius: rem(12);
+
+        &:hover {
+            background: hsl(var(--color-default-300) / 0.15);
+        }
+    }
+}
+
+.active {
+    background: hsl(var(--color-default-300) / 0.25);
+}
+
+.divider {
+    margin: rem(16) 0;
+    height: rem(1);
+    width: 100%;
+    background: hsl(var(--color-default-300) / 1);
+    opacity: 0.35;
+}
+
+.userBlockMenu {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+}
+
+.email {
+    word-break: break-word;
 }

@@ -9,6 +9,9 @@
     padding: 0 rem(10) rem(10) 0;
     height: calc(100vh - var(--header-height));
     border-right: none;
+    @include tablet {
+        display: none;
+    }
 }
 
 .link {
