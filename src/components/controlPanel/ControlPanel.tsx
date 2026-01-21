@@ -11,9 +11,10 @@ import styles from './controlPanel.module.scss';
 type ControlPanel = {
     id: string;
     onDelete?: (id: string) => void;
+    getToEdit: string;
 };
 
-export const ControlPanel = ({ id, onDelete }: ControlPanel) => {
+export const ControlPanel = ({ id, onDelete, getToEdit }: ControlPanel) => {
     const [openMenu, setOpenMenu] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -49,7 +50,7 @@ export const ControlPanel = ({ id, onDelete }: ControlPanel) => {
                 <Menu className={styles.icon} />
             </Button>
             <div className={openMenu ? `${styles.icons} ${styles.open}` : styles.icons}>
-                <NavLink className={styles.item} to={`/blogs/edit/${id}`}>
+                <NavLink className={styles.item} to={getToEdit}>
                     <Edit className={styles.icon} />
                     <Typography variant="body1">Edit</Typography>
                 </NavLink>

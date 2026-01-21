@@ -9,6 +9,7 @@ import { BlogsPage } from '../pages/blogsPage/BlogsPage.tsx';
 import { CreateBlogPage } from '../pages/createBlogPage/CreateBlogPage.tsx';
 import { CreatePostPage } from '../pages/createPostPage/CreatePostPage.tsx';
 import { EditBlogPage } from '../pages/editBlogPage/EditBlogPage.tsx';
+import { EditPostPage } from '../pages/editPostPage/EditPostPage.tsx';
 import { LoginPage } from '../pages/loginPage/LoginPage.tsx';
 import { PostsPage } from '../pages/postsPage/PostsPage.tsx';
 import { RegisterPage } from '../pages/registerPage/RegisterPage.tsx';
@@ -40,7 +41,8 @@ export const router = createBrowserRouter([
                         element: <RequireAuth />,
                         children: [
                             { path: '/blogs/create', element: <CreateBlogPage /> },
-                            { path: '/blogs/edit/:id', element: <EditBlogPage /> },
+                            { path: '/blogs/:id/edit', element: <EditBlogPage /> },
+                            { path: '/posts/:id/edit', element: <EditPostPage /> },
                             { path: '/blogs/:id/posts/create', element: <CreatePostPage /> },
                         ],
                     },

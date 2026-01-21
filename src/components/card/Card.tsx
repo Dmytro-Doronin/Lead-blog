@@ -16,9 +16,10 @@ type CardProps = {
     onDeleteItem?: (id: string) => void;
     isAuth: boolean;
     to: string;
+    getToEdit: string;
 };
 
-export const Card = ({ item, currentUserId, onDeleteItem, isAuth, to }: CardProps) => {
+export const Card = ({ item, currentUserId, onDeleteItem, isAuth, to, getToEdit }: CardProps) => {
     const [loaded, setLoaded] = useState(false);
     const hasImage = !!item.imageUrl;
     const imgRef = useRef<HTMLImageElement | null>(null);
@@ -86,7 +87,11 @@ export const Card = ({ item, currentUserId, onDeleteItem, isAuth, to }: CardProp
                         </Typography>
                         {isCurrentUser && (
                             <div onClick={stop}>
-                                <ControlPanel id={item.id} onDelete={onDeleteItem} />
+                                <ControlPanel
+                                    id={item.id}
+                                    onDelete={onDeleteItem}
+                                    getToEdit={getToEdit}
+                                />
                             </div>
                         )}
                     </div>

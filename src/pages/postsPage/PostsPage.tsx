@@ -63,6 +63,7 @@ export const PostsPage = () => {
                     placeholdersCount={placeholdersCount}
                     isAuth={isAuth}
                     getTo={(item) => `/posts/${item.id}`}
+                    getToEdit={(item) => `/posts/${item.id}/edit`}
                 />
             ) : (
                 <div>No posts</div>

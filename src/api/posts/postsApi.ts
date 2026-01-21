@@ -2,7 +2,7 @@ import type { LikeStatus } from '../../helpers/nextStatus.ts';
 import type { BlogType } from '../blogs/blogsTypes.ts';
 import type { PostFinalType, PostsQueryParams, PostType } from './postsTypes.ts';
 
-import { apiProtected } from '../api.ts';
+import { apiProtected, apiPublic } from '../api.ts';
 
 export const fetchPosts = async (
     params: PostsQueryParams & { id?: string },
@@ -17,6 +17,23 @@ export const fetchPosts = async (
         },
     });
 
+    return data;
+};
+
+export const getPost = async (id: string): Promise<PostType> => {
+    const { data } = await apiPublic.get<PostType>(`/posts/${id}`);
+
+    return data;
+};
+
+export const editPost = async ({
+    id,
+    formData,
+}: {
+    id: string;
+    formData: FormData;
+}): Promise<PostType> => {
+    const { data } = await apiProtected.put<PostType>(`/posts/${id}`, formData);
     return data;
 };
 

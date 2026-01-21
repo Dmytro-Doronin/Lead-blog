@@ -11,6 +11,7 @@ type CardListProps = {
     placeholdersCount: number;
     isAuth: boolean;
     getTo: (item: CardItem) => string;
+    getToEdit: (item: CardItem) => string;
 };
 
 export const CardList = ({
@@ -20,12 +21,14 @@ export const CardList = ({
     placeholdersCount,
     isAuth,
     getTo,
+    getToEdit,
 }: CardListProps) => {
     return (
         <div className={styles.carfList}>
             {items.map((item) => (
                 <Card
                     to={getTo(item)}
+                    getToEdit={getToEdit(item)}
                     key={item.id}
                     item={item}
                     currentUserId={currentUserId}

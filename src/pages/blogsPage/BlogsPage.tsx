@@ -52,6 +52,7 @@ export const BlogsPage = () => {
                     placeholdersCount={placeholdersCount}
                     isAuth={isAuth}
                     getTo={(item) => `/blogs/${item.id}/posts`}
+                    getToEdit={(item) => `/blogs/${item.id}/edit`}
                 />
             ) : (
                 <div>No blogs</div>

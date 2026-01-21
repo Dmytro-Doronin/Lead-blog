@@ -25,7 +25,7 @@ export const useEditBlogMutation = () => {
             const msg = getErrorMessage(error);
             notify({
                 variant: 'error',
-                message: msg ?? 'Failed to add blog',
+                message: msg ?? 'Failed to edit blog',
             });
         },
     });
