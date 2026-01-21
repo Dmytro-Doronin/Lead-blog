@@ -54,7 +54,7 @@ export const PostPage = () => {
                     <hr className={styles.line} />
                     <div className={styles.contentWrapper}>
                         <div className={styles.content}>
-                            <Typography variant="body2">{post.content}</Typography>
+                            <Typography variant="body1">{post.content}</Typography>
                         </div>
                     </div>
                     <hr className={styles.line} />
