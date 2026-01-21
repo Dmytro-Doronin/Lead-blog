@@ -10,7 +10,7 @@ export const blogsSchema = z.object({
         .max(15, { message: 'Name must be shorter than or equal to 15 characters' }),
     description: z
         .string()
-        .min(3, { message: 'Password must be at least 1 character' })
+        .min(3, { message: 'Description must be at least 1 character' })
         .max(500, { message: 'Description must not be longer than 500 characters' }),
     websiteUrl: z
         .string()
