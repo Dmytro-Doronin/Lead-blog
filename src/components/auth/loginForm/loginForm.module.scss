@@ -7,6 +7,15 @@
     width: rem(400);
 }
 
+.data {
+    display: flex;
+    flex-direction: column;
+    font-size: rem(24);
+    gap: rem(10);
+    margin-bottom: rem(20);
+    color: var(--color-light-300);
+}
+
 .inputGroup {
     display: flex;
     flex-direction: column;

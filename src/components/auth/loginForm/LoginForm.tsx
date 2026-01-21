@@ -35,6 +35,14 @@ export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmitForm)}>
+            <div className={styles.data}>
+                <span>
+                    user-name: <b>user@gmail.com</b>
+                </span>{' '}
+                <span>
+                    password: <b>123123123</b>
+                </span>
+            </div>
             <Typography variant={'h2'}>Login</Typography>
             <div className={styles.inputGroup}>
                 <ControlledTextField
