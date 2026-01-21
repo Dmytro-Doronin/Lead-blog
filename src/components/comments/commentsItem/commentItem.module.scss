@@ -24,8 +24,8 @@
 }
 
 .infoWrapper {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr rem(200);
     gap: rem(20);
 }
 
@@ -38,8 +38,6 @@
 .likes {
     display: flex;
     gap: rem(20);
-    justify-content: flex-end;
-    align-items: end;
 }
 
 .extendedItem {
@@ -56,5 +54,18 @@
 }
 
 .disliked {
-    color: var(--color-secondary);
+    color: var(--color-main);
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: rem(20);
+}
+
+.control {
+    display: flex;
+    gap: rem(20);
 }

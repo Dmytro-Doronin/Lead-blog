@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import type { CommentType } from '../../../api/comments/commentsTypes.ts';
 
 import NoImage from '../../../assets/Image-not-found.png';
@@ -7,8 +5,8 @@ import { formatDate } from '../../../helpers/dataHelper.ts';
 import { type LikeStatus, nextStatus } from '../../../helpers/nextStatus.ts';
 import { useDeleteCommentMutation } from '../../../hooks/comments/useDeleteCommentMutation.tsx';
 import { useSetCommentLikeStatusMutation } from '../../../hooks/comments/useSetCommentLikeStatusMutation.tsx';
+import Delete from '../../icons/Delete.tsx';
 import Dislike from '../../icons/Dislike.tsx';
-import Edit from '../../icons/Edit.tsx';
 import Like from '../../icons/Like.tsx';
 import { Button } from '../../ui/button/Button.tsx';
 import styles from './commentItem.module.scss';
@@ -23,23 +21,17 @@ export const CommentItem = ({
     isAuth: boolean;
     canManage: boolean;
 }) => {
-    const [isEditing, setIsEditing] = useState(false);
-
     const deleteMutation = useDeleteCommentMutation(postId);
     const likeMutation = useSetCommentLikeStatusMutation(postId);
     const current = comment.likesInfo.myStatus as LikeStatus;
     const likeBtnClass = current === 'Like' ? styles.liked : '';
     const dislikeBtnClass = current === 'Dislike' ? styles.disliked : '';
+
     const onLike = () =>
-        likeMutation.mutate({
-            commentId: comment.id,
-            next: nextStatus(comment.likesInfo.myStatus, 'Like'),
-        });
+        likeMutation.mutate({ commentId: comment.id, next: nextStatus(current, 'Like') });
+
     const onDislike = () =>
-        likeMutation.mutate({
-            commentId: comment.id,
-            next: nextStatus(comment.likesInfo.myStatus, 'Dislike'),
-        });
+        likeMutation.mutate({ commentId: comment.id, next: nextStatus(current, 'Dislike') });
 
     return (
         <div className={styles.commentItem}>
@@ -55,57 +47,52 @@ export const CommentItem = ({
                         <b>{comment.commentatorInfo.userLogin}</b> •{' '}
                         <span>{formatDate(comment.createdAt)}</span>
                     </div>
-
-                    {isEditing ? (
-                        // <CommentsForm isLoading={} onSubmit={} />
-                        <div>is edit</div>
-                    ) : (
-                        <p>{comment.content}</p>
-                    )}
+                    <p>{comment.content}</p>
                 </div>
-
-                <div className={styles.likes}>
-                    <div className={styles.extendedItem}>
-                        <Button
-                            variant="transparent"
-                            disabled={!isAuth}
-                            onClick={onLike}
-                            className={likeBtnClass}
-                        >
-                            <Like />
-                        </Button>
-                        <span className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}>
-                            {comment.likesInfo.likesCount}
-                        </span>
-                    </div>
-                    <div className={styles.extendedItem}>
-                        <Button
-                            variant="transparent"
-                            disabled={!isAuth}
-                            onClick={onDislike}
-                            className={dislikeBtnClass}
-                        >
-                            <Dislike />
-                        </Button>
-                        <span className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}>
-                            {comment.likesInfo.dislikesCount}
-                        </span>
-                    </div>
-
-                    {canManage && !isEditing && (
-                        <>
-                            <Button variant="transparent" onClick={() => setIsEditing(true)}>
-                                <Edit />
-                            </Button>
+                <div className={styles.footer}>
+                    {canManage && (
+                        <div className={styles.control}>
                             <Button
                                 variant="transparent"
                                 disabled={deleteMutation.isPending}
                                 onClick={() => deleteMutation.mutate({ id: comment.id })}
                             >
-                                Delete
+                                <Delete />
                             </Button>
-                        </>
+                        </div>
                     )}
+                    <div className={styles.likes}>
+                        <div className={styles.extendedItem}>
+                            <Button
+                                variant="transparent"
+                                disabled={!isAuth || likeMutation.isPending}
+                                onClick={onLike}
+                                className={likeBtnClass}
+                            >
+                                <Like />
+                            </Button>
+                            <span
+                                className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}
+                            >
+                                {comment.likesInfo.likesCount}
+                            </span>
+                        </div>
+                        <div className={styles.extendedItem}>
+                            <Button
+                                variant="transparent"
+                                disabled={!isAuth || likeMutation.isPending}
+                                onClick={onDislike}
+                                className={dislikeBtnClass}
+                            >
+                                <Dislike />
+                            </Button>
+                            <span
+                                className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}
+                            >
+                                {comment.likesInfo.dislikesCount}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
