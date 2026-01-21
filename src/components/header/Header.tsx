@@ -112,45 +112,46 @@ export const Header = ({ isAuth, user, logout, loading }: HeaderProps) => {
                 className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`}
                 onClick={() => setOpen(false)}
             />
+            {open && (
+                <aside
+                    className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
+                    aria-hidden={!open}
+                >
+                    <div className={styles.drawerHeader}>
+                        <NavLink to="/blogs" className={styles.drawerLogo}>
+                            <Logo />
+                        </NavLink>
 
-            <aside
-                className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
-                aria-hidden={!open}
-            >
-                <div className={styles.drawerHeader}>
-                    <NavLink to="/blogs" className={styles.drawerLogo}>
-                        <Logo />
-                    </NavLink>
+                        <button
+                            type="button"
+                            className={styles.close}
+                            aria-label="Close menu"
+                            onClick={() => setOpen(false)}
+                        >
+                            ✕
+                        </button>
+                    </div>
 
-                    <button
-                        type="button"
-                        className={styles.close}
-                        aria-label="Close menu"
-                        onClick={() => setOpen(false)}
-                    >
-                        ✕
-                    </button>
-                </div>
+                    <nav className={styles.nav}>
+                        <NavLink
+                            to="/blogs"
+                            className={({ isActive }) => (isActive ? styles.active : '')}
+                        >
+                            Blogs
+                        </NavLink>
+                        <NavLink
+                            to="/posts"
+                            className={({ isActive }) => (isActive ? styles.active : '')}
+                        >
+                            Posts
+                        </NavLink>
+                    </nav>
 
-                <nav className={styles.nav}>
-                    <NavLink
-                        to="/blogs"
-                        className={({ isActive }) => (isActive ? styles.active : '')}
-                    >
-                        Blogs
-                    </NavLink>
-                    <NavLink
-                        to="/posts"
-                        className={({ isActive }) => (isActive ? styles.active : '')}
-                    >
-                        Posts
-                    </NavLink>
-                </nav>
+                    <div className={styles.divider} />
 
-                <div className={styles.divider} />
-
-                {AuthActions}
-            </aside>
+                    {AuthActions}
+                </aside>
+            )}
         </header>
     );
 };
