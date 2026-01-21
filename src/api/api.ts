@@ -9,14 +9,14 @@ type QueueItem = {
 };
 
 //https://blog-backend-nest.vercel.app
-
+//'http://localhost:3000'
 export const apiPublic = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://blog-backend-nest.vercel.app',
     withCredentials: false,
 });
 
 export const apiProtected = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://blog-backend-nest.vercel.app',
     withCredentials: true,
 });
 
