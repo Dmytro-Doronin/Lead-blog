@@ -2,7 +2,7 @@ import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useController, type Control, type FieldValues, type Path } from 'react-hook-form';
 
 import { Button } from '../../button/Button';
-import styles from './ControlledImageUpload.module.scss';
+import styles from './controlledImageUpload.module.scss';
 
 type Props<T extends FieldValues> = {
     name: Path<T>;
