@@ -1,5 +1,4 @@
 import type { LikeStatus } from '../../helpers/nextStatus.ts';
-import type { BlogType } from '../blogs/blogsTypes.ts';
 import type { PostFinalType, PostsQueryParams, PostType } from './postsTypes.ts';
 
 import { apiProtected, apiPublic } from '../api.ts';
@@ -38,7 +37,7 @@ export const editPost = async ({
 };
 
 export const deletePost = async ({ id }: { id: string }) => {
-    await apiProtected.delete<BlogType>(`/posts/${id}`);
+    await apiProtected.delete<PostType>(`/posts/${id}`);
 };
 
 export const setPostLikeStatus = async (id: string, likeStatus: LikeStatus) => {

@@ -1,12 +1,12 @@
-import type { BlogFinalType } from '../../api/blogs/blogsTypes.ts';
+import type { PostFinalType } from '../../api/posts/postsTypes.ts';
 
-import { deleteBlog } from '../../api/blogs/blogsApi.ts';
+import { deletePost } from '../../api/posts/postsApi.ts';
 import { useDeleteInfiniteItemMutation } from '../useDeleteInfiniteItemMutation.tsx';
 import { postsKeys } from './posts.keys.ts';
 
 export const useDeletePostMutation = () =>
-    useDeleteInfiniteItemMutation<BlogFinalType>({
-        mutationFn: deleteBlog,
+    useDeleteInfiniteItemMutation<PostFinalType>({
+        mutationFn: deletePost,
         keys: { all: postsKeys.all, byId: postsKeys.byId, listRoot: ['posts', 'postsList'] },
         successMessage: 'Post deleted successfully.',
         errorMessageFallback: 'Failed to delete post',

@@ -8,10 +8,10 @@ export const Aside = () => {
 
     return (
         <aside className={styles.aside}>
-            <NavLink className={linkClass} to="/blogs">
+            <NavLink className={linkClass} to="/blogs" end>
                 Blogs
             </NavLink>
-            <NavLink className={linkClass} to="/posts">
+            <NavLink className={linkClass} to="/posts" end>
                 Posts
             </NavLink>
         </aside>
