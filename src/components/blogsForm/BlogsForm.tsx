@@ -22,12 +22,7 @@ type BlogsFormType = {
 };
 
 export const BlogsForm = ({ isLoading, onSubmit, blog, title = 'Add blog' }: BlogsFormType) => {
-    const {
-        control,
-        handleSubmit,
-        reset,
-        // formState: { errors },
-    } = useForm<BlogsFormValues>({
+    const { control, handleSubmit, reset } = useForm<BlogsFormValues>({
         resolver: zodResolver(blogsSchema),
         defaultValues: {
             name: '',

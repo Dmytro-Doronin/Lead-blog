@@ -50,19 +50,6 @@ export const router = createBrowserRouter([
                     },
                 ],
             },
-            // {
-            //     path: '/',
-            //     element: (
-            //         <RequireAuth>
-            //             <AppLayout />
-            //         </RequireAuth>
-            //     ),
-            //     children: [
-            //         { index: true, element: <Navigate to="blogs" replace /> },
-            //         { path: 'blogs', element: <BlogsPage /> },
-            //         { path: 'postsPage', element: <PostsPage /> },
-            //     ],
-            // },
         ],
     },
 ]);

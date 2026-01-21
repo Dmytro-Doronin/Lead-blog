@@ -24,11 +24,6 @@ export const addComment = async (content: string, id: string): Promise<BlogType>
     return data;
 };
 
-export const editComment = async (commentId: string, content: string): Promise<CommentType> => {
-    const { data } = await apiProtected.put<CommentType>(`/comments/${commentId}`, { content });
-    return data;
-};
-
 export const deleteComment = async (commentId: string): Promise<void> => {
     await apiProtected.delete(`/comments/${commentId}`);
 };
