@@ -39,3 +39,11 @@ export type PostsQueryParams = {
     pageNumber?: number;
     pageSize?: number;
 };
+
+export type MutationPostType = {
+    title: string;
+    shortDescription: string;
+    content: string;
+    blogId: string;
+    file: File | null;
+};

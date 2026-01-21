@@ -66,7 +66,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
                     />
                 </div>
 
-                <Typography variant="body2" className={errorMessage && 'error'}>
+                <Typography variant="body2" className="error">
                     {errorMessage}
                 </Typography>
             </div>

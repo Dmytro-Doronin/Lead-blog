@@ -1,3 +1,4 @@
+import type { PostType } from '../posts/postsTypes.ts';
 import type { BlogFinalType, BlogsQueryParams, BlogType } from './blogsTypes.ts';
 
 import { apiPublic, apiProtected } from '../api.ts';
@@ -40,4 +41,15 @@ export const editBlog = async ({
 
 export const deleteBlog = async ({ id }: { id: string }) => {
     await apiProtected.delete<BlogType>(`/blogs/${id}`);
+};
+
+export const addPostForBlog = async ({
+    blogId,
+    formData,
+}: {
+    blogId: string;
+    formData: FormData;
+}): Promise<PostType> => {
+    const { data } = await apiProtected.post<PostType>(`/blogs/${blogId}/posts`, formData);
+    return data;
 };
