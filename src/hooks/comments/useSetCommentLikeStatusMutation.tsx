@@ -17,13 +17,14 @@ export const useSetCommentLikeStatusMutation = (postId: string) => {
     const commentsListRootKey = commentsKeys.byPost(postId);
 
     const replaceCommentEverywhere = (updated: CommentType) => {
-        // byId
         qc.setQueryData(commentsKeys.byId(updated.id), updated);
 
         const lists = qc.getQueriesData<CommentsInfinite>({ queryKey: commentsListRootKey });
         lists.forEach(([key]) => {
             qc.setQueryData<CommentsInfinite | undefined>(key, (old) => {
-                if (!old) return old;
+                if (!old) {
+                    return old;
+                }
 
                 return {
                     ...old,
@@ -57,15 +58,18 @@ export const useSetCommentLikeStatusMutation = (postId: string) => {
 
             prevLists.forEach(([key]) => {
                 qc.setQueryData<CommentsInfinite | undefined>(key, (old) => {
-                    if (!old) return old;
+                    if (!old) {
+                        return old;
+                    }
 
                     return {
                         ...old,
                         pages: old.pages.map((p) => ({
                             ...p,
                             items: p.items.map((c) => {
-                                if (c.id !== commentId || !c.likesInfo) return c;
-
+                                if (c.id !== commentId || !c.likesInfo) {
+                                    return c;
+                                }
                                 return {
                                     ...c,
                                     likesInfo: applyCommentLikeOptimistic(c.likesInfo, next),
@@ -76,10 +80,10 @@ export const useSetCommentLikeStatusMutation = (postId: string) => {
                 });
             });
 
-            // optimistic update byId
             qc.setQueryData<CommentType | undefined>(commentsKeys.byId(commentId), (old) => {
-                if (!old?.likesInfo) return old;
-
+                if (!old?.likesInfo) {
+                    return old;
+                }
                 return {
                     ...old,
                     likesInfo: applyCommentLikeOptimistic(old.likesInfo, next),
@@ -90,10 +94,13 @@ export const useSetCommentLikeStatusMutation = (postId: string) => {
         },
 
         onError: (_err, vars, ctx) => {
-            if (ctx?.prevLists) ctx.prevLists.forEach(([k, d]) => qc.setQueryData(k, d));
-            if (ctx?.prevById) qc.setQueryData(commentsKeys.byId(vars.commentId), ctx.prevById);
+            if (ctx?.prevLists) {
+                ctx.prevLists.forEach(([k, d]) => qc.setQueryData(k, d));
+            }
+            if (ctx?.prevById) {
+                qc.setQueryData(commentsKeys.byId(vars.commentId), ctx.prevById);
+            }
         },
-
         onSuccess: (updatedComment) => {
             replaceCommentEverywhere(updatedComment);
         },

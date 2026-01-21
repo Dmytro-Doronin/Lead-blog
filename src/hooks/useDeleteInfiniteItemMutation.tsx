@@ -58,10 +58,14 @@ export const useDeleteInfiniteItemMutation = <TPage extends PageWithItems, TById
 
             prevLists.forEach(([key]) => {
                 qc.setQueryData<InfiniteData<TPage, number> | undefined>(key, (old) => {
-                    if (!old) return old;
+                    if (!old) {
+                        return old;
+                    }
 
                     const exists = old.pages.some((p) => p.items.some((x) => x.id === id));
-                    if (!exists) return old;
+                    if (!exists) {
+                        return old;
+                    }
 
                     return {
                         ...old,

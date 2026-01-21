@@ -5,3 +5,14 @@
     flex-direction: column;
     gap: rem(20);
 }
+
+.noComments {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    align-self: center;
+}

@@ -26,7 +26,6 @@ export const CommentsSection = ({ postId, isAuth, currentUserId }: Props) => {
     const commentItems = comments?.pages.flatMap((p) => p.items) ?? [];
 
     const onSubmitForm = async (data: string) => {
-        console.log(data);
         await mutateAsync({ id: postId, content: data });
     };
 
@@ -34,17 +33,22 @@ export const CommentsSection = ({ postId, isAuth, currentUserId }: Props) => {
         <section className={styles.commentSection}>
             {isAuth && <CommentsForm isLoading={isPending} onSubmit={onSubmitForm} />}
 
-            <CommentList
-                items={commentItems ?? []}
-                isAuth={isAuth}
-                currentUserId={currentUserId}
-                postId={postId}
-            />
+            {commentItems.length === 0 ? (
+                <div className={styles.noComments}>No comments</div>
+            ) : (
+                <CommentList
+                    items={commentItems ?? []}
+                    isAuth={isAuth}
+                    currentUserId={currentUserId}
+                    postId={postId}
+                />
+            )}
 
             {hasNextPage && (
                 <Button
                     onClick={() => fetchNextPage()}
                     disabled={!hasNextPage || isFetchingNextPage}
+                    className={styles.button}
                 >
                     {isFetchingNextPage ? 'Loading...' : 'Load more'}
                 </Button>

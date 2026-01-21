@@ -53,9 +53,6 @@ export const LoginForm = ({ onSubmit, isLoading }: LoginFormType) => {
                     Icon={Lock}
                 />
             </div>
-            <Button disabled={isLoading} variant="special" type="button" fullWidth>
-                <Typography variant="body1">Forgot password</Typography>
-            </Button>
             <div className={styles.infoGroup}>
                 <Button disabled={isLoading} type="submit">
                     <Typography variant="body1">Log in</Typography>

@@ -58,7 +58,7 @@ option {
 body {
     margin: 0;
     padding: 0;
-
+    box-sizing: border-box;
     font-family: var(--font-family), sans-serif;
     background-color: var(--lighter-main);
     color: var(--color-light-100);

@@ -12,8 +12,8 @@ export const useAddCommentMutation = () => {
 
     return useMutation({
         mutationFn: ({ id, content }: Vars) => addComment(content, id),
-        onSuccess: async () => {
-            await qc.resetQueries({ queryKey: commentsKeys.all });
+        onSuccess: async (_data, vars) => {
+            await qc.invalidateQueries({ queryKey: commentsKeys.byPost(vars.id) });
         },
         onError: (error) => {
             const msg = getErrorMessage(error);

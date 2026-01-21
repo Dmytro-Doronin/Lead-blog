@@ -65,7 +65,7 @@ export const RegisterForm = ({ onSubmit, isLoading }: LoginFormType) => {
                 />
             </div>
             <Button variant="primary" fullWidth disabled={isLoading} type="submit">
-                Registration
+                <Typography variant="body1">Registration</Typography>
             </Button>
             <div className={styles.infoGroup}>
                 <Typography className={styles.info} variant="body2">
