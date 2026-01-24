@@ -5,6 +5,7 @@ import { AppLayout } from '../layout/appLayout/AppLayout.tsx';
 import { RequireAuth } from '../layout/appLayout/RequireAuth.tsx';
 import { AuthLayout } from '../layout/authLayout/AuthLayout.tsx';
 import { RootLayout } from '../layout/rootLayout/RootLayout.tsx';
+import { NotFound } from '../pages/404/NotFound.tsx';
 import { BlogsPage } from '../pages/blogsPage/BlogsPage.tsx';
 import { CreateBlogPage } from '../pages/createBlogPage/CreateBlogPage.tsx';
 import { CreatePostPage } from '../pages/createPostPage/CreatePostPage.tsx';
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
                 <RootLayout />
             </AuthProvider>
         ),
-        errorElement: <div>Page not found</div>,
+        errorElement: <NotFound />,
         children: [
             {
                 element: <AuthLayout />,
