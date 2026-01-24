@@ -2,7 +2,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import { GetRefreshToken } from './auth/authApi.ts';
-
+import { triggerLogout } from './auth/logoutBus.ts';
+const baseURL = import.meta.env.VITE_SERVER_URL;
 type QueueItem = {
     resolve: (token: string | null) => void;
     reject: (error: unknown) => void;
@@ -11,12 +12,12 @@ type QueueItem = {
 //https://blog-backend-nest.vercel.app
 //'http://localhost:3000'
 export const apiPublic = axios.create({
-    baseURL: 'https://blog-backend-nest.vercel.app',
+    baseURL: baseURL,
     withCredentials: false,
 });
 
 export const apiProtected = axios.create({
-    baseURL: 'https://blog-backend-nest.vercel.app',
+    baseURL: baseURL,
     withCredentials: true,
 });
 
@@ -50,6 +51,7 @@ apiProtected.interceptors.response.use(
 
         if (String(originalRequest.url).includes('/auth/refresh-token')) {
             Cookies.remove('accessToken');
+            triggerLogout();
             return Promise.reject(error);
         }
 
@@ -87,6 +89,7 @@ apiProtected.interceptors.response.use(
             } catch (refreshError) {
                 processQueue(refreshError, null);
                 Cookies.remove('accessToken');
+                triggerLogout();
                 return Promise.reject(refreshError);
             } finally {
                 isRefreshing = false;

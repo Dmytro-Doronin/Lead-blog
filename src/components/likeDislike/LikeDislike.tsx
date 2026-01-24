@@ -16,7 +16,7 @@ type LikeDislikeProps = {
 };
 
 export const LikeDislike = ({ extendedLikesInfo, isAuth, postId }: LikeDislikeProps) => {
-    const { mutate, isPending } = useSetPostLikeStatusMutation();
+    const { mutate } = useSetPostLikeStatusMutation();
 
     if (!extendedLikesInfo) {
         return null;
@@ -41,30 +41,26 @@ export const LikeDislike = ({ extendedLikesInfo, isAuth, postId }: LikeDislikePr
             <div className={styles.extendedItem}>
                 <Button
                     variant="transparent"
-                    disabled={!isAuth || isPending}
+                    disabled={!isAuth}
                     onClick={onLike}
                     className={likeBtnClass}
                 >
                     <Like />
                 </Button>
-                <span
-                    className={`${styles.likesCount} ${!isAuth || isPending ? styles.disabled : ''}`}
-                >
+                <span className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}>
                     {extendedLikesInfo.likesCount}
                 </span>
             </div>
             <div className={styles.extendedItem}>
                 <Button
                     variant="transparent"
-                    disabled={!isAuth || isPending}
+                    disabled={!isAuth}
                     onClick={onDislike}
                     className={dislikeBtnClass}
                 >
                     <Dislike />
                 </Button>
-                <span
-                    className={`${styles.likesCount} ${!isAuth || isPending ? styles.disabled : ''}`}
-                >
+                <span className={`${styles.likesCount} ${!isAuth ? styles.disabled : ''}`}>
                     {extendedLikesInfo.dislikesCount}
                 </span>
             </div>

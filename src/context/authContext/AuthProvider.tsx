@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
@@ -6,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import type { LoginType, RegisterTypes, UserType } from '../../api/auth/types.ts';
 
 import { Login, Logout, Me, Registration } from '../../api/auth/authApi.ts';
+import { setLogoutHandler } from '../../api/auth/logoutBus.ts';
 import { getErrorMessage } from '../../helpers/ErrorHelper.ts';
 import { useNotification } from '../../hooks/useNotification.tsx';
 import { AuthContext } from './AuthContext.tsx';
@@ -17,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { notify } = useNotification();
     const navigate = useNavigate();
     const isAuth = !!user;
-
+    const qc = useQueryClient();
     const fetchMe = useCallback(async (silent = false) => {
         try {
             const user = await Me();
@@ -64,6 +66,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
+    const hardLogout = useCallback(() => {
+        Cookies.remove('accessToken');
+        setUser(null);
+
+        qc.clear();
+
+        notify({
+            message: 'Session expired. Please login again.',
+            variant: 'error',
+            duration: 4000,
+        });
+        navigate('/blogs', { replace: true });
+    }, [qc, navigate, notify]);
+
     const logout = async () => {
         setIsLoading(true);
         try {
@@ -78,6 +94,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        setLogoutHandler(hardLogout);
+        return () => setLogoutHandler(() => {});
+    }, [hardLogout]);
 
     useEffect(() => {
         const token = Cookies.get('accessToken');
