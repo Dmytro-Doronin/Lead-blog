@@ -66,7 +66,7 @@ export const CommentItem = ({
                         <div className={styles.extendedItem}>
                             <Button
                                 variant="transparent"
-                                disabled={!isAuth || likeMutation.isPending}
+                                disabled={!isAuth}
                                 onClick={onLike}
                                 className={likeBtnClass}
                             >
@@ -81,7 +81,7 @@ export const CommentItem = ({
                         <div className={styles.extendedItem}>
                             <Button
                                 variant="transparent"
-                                disabled={!isAuth || likeMutation.isPending}
+                                disabled={!isAuth}
                                 onClick={onDislike}
                                 className={dislikeBtnClass}
                             >

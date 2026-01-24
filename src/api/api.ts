@@ -9,8 +9,6 @@ type QueueItem = {
     reject: (error: unknown) => void;
 };
 
-//https://blog-backend-nest.vercel.app
-//'http://localhost:3000'
 export const apiPublic = axios.create({
     baseURL: baseURL,
     withCredentials: false,
@@ -19,6 +17,7 @@ export const apiPublic = axios.create({
 export const apiProtected = axios.create({
     baseURL: baseURL,
     withCredentials: true,
+    timeout: 10_000,
 });
 
 apiProtected.interceptors.request.use((config) => {
@@ -46,7 +45,11 @@ const processQueue = (error: unknown, token: string | null = null) => {
 
 apiProtected.interceptors.response.use(
     (response) => response,
+
     async (error) => {
+        if (!error.response) {
+            return Promise.reject(error);
+        }
         const originalRequest = error.config;
 
         if (String(originalRequest.url).includes('/auth/refresh-token')) {

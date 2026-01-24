@@ -46,7 +46,9 @@ export const useSetCommentLikeStatusMutation = (postId: string) => {
             prevById: CommentType | undefined;
         }
     >({
-        mutationFn: ({ commentId, next }) => setCommentLikeStatus(commentId, next),
+        mutationFn: ({ commentId, next }) => {
+            return setCommentLikeStatus(commentId, next);
+        },
 
         onMutate: async ({ commentId, next }) => {
             await qc.cancelQueries({ queryKey: commentsListRootKey });
